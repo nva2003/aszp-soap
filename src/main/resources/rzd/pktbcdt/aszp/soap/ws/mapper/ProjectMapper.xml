@@ -1,0 +1,88 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper">
+
+    <select id="getProjectsWithKeyIndicators" resultMap="projectsMap" parameterType="map" >
+        SELECT
+        PR."idProject"
+        ,PR."nameProject"
+        ,PR."nameProjectFull"
+        ,PR."descriptionProject"
+        ,PR."dateBeginProject"
+        ,PR."dateEndProject"
+        ,I."nameEco"
+        ,I."typeEco"
+        ,I."idEco"
+        ,IV."idProc"
+        ,IV."yearProc"
+        ,IV."halfProc"
+        ,IV."quarterProc"
+        ,IV."monthProc"
+        ,IV."planProc"
+        ,IV."realProc"
+
+        FROM
+        public.tbl_projects PR
+        left outer join
+        public.tbl_ecos I
+        on PR."idProject" = I."idProject"
+        left outer join
+        public.tbl_ecoprocs IV
+        on IV."idEco"=I."idEco"
+
+        <where>
+            <if test="typeIndicator != null and typeIndicator !=''">
+                I."typeEco" = #{typeIndicator}
+            </if>
+           <if test="idProject != null">
+              and PR."idProject = #{idProject}
+            </if>
+
+        </where>
+
+
+
+    </select>
+
+
+
+
+    <resultMap id="projectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
+        <id  property="idProject" column="idProject"/>
+        <result property="nameProject" column="nameProject"/>
+        <result property="nameProjectFull" column="nameProjectFull"/>
+        <result property="descriptionProject" column="descriptionProject"/>
+        <result property="dateBeginProject" column="dateBeginProject"/>
+        <result property="dateEndProject" column="dateEndProject"/>
+        <result property="typeProject" column="typeProject"/>
+
+        <collection property="indicators" ofType="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
+            <result property="idIndicator" column="idEco"/>
+            <result property="typeIndicator" column="typeEco"/>
+            <result property="nameIndicator" column="nameEco"/>
+
+            <collection property="indicatorValues" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorValue">
+                <result property="idIndicatorValue" column="yearProc"/>
+                <result property="year" column="yearProc"/>
+                <result property="half" column="halfProc"/>
+                <result property="quarter" column="quarterProc"/>
+                <result property="month" column="mmonthProc"/>
+                <result property="planValue" column="planProc"/>
+                <result property="realValue" column="realProc"/>
+            </collection>
+
+
+        </collection>
+
+
+
+
+
+    </resultMap>
+
+
+
+
+
+</mapper>
