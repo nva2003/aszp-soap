@@ -31,7 +31,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema projectsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("Projects");
-        wsdl11Definition.setLocationUri("/ws");
+        wsdl11Definition.setLocationUri(WSEndpoint.WS_URI);
         wsdl11Definition.setTargetNamespace(WSEndpoint.NAMESPACE_URI);
         wsdl11Definition.setSchema(projectsSchema);
         wsdl11Definition.setRequestSuffix("Request");
