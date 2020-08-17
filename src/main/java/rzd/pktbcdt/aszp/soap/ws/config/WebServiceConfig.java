@@ -30,7 +30,6 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     @Bean(name = "projects")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema projectsSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-//        DefaultWsdl11Definition wsdl11Definition = new ReflectionWsdl11Definition();
         wsdl11Definition.setPortTypeName("Projects");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace(WSEndpoint.NAMESPACE_URI);
@@ -44,4 +43,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
     public XsdSchema projectsSchema() {
         return new SimpleXsdSchema(new ClassPathResource("project.xsd"));
     }
+
+
+
 }
