@@ -71,11 +71,11 @@
             <result property="nameIndicator" column="nameEco"/>
 
             <collection property="indicatorValues" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorValue">
-                <result property="idIndicatorValue" column="yearProc"/>
+                <result property="idIndicatorValue" column="idProc"/>
                 <result property="year" column="yearProc"/>
                 <result property="half" column="halfProc"/>
                 <result property="quarter" column="quarterProc"/>
-                <result property="month" column="mmonthProc"/>
+                <result property="month" column="monthProc"/>
                 <result property="planValue" column="planProc"/>
                 <result property="realValue" column="realProc"/>
             </collection>
