@@ -31,15 +31,23 @@
         public.tbl_ecoprocs IV
         on IV."idEco"=I."idEco"
 
-        <where>
+        where
+            PR."idType" != 3
             <if test="typeIndicator != null and typeIndicator !=''">
-                I."typeEco" = #{typeIndicator}
+              and I."typeEco" = #{typeIndicator}
             </if>
            <if test="idProject != null">
               and PR."idProject = #{idProject}
             </if>
+            <choose>
+                <when test="year != null">
+                    and IV."yearProc" = #{year}
+                </when>
+                <otherwise>
+                    and IV."yearProc"=date_part('year',CURRENT_DATE)
+                </otherwise>
+            </choose>
 
-        </where>
 
 
 
