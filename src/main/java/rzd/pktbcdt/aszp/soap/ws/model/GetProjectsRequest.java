@@ -59,4 +59,10 @@ public class GetProjectsRequest {
         this.typeIndicator = value;
     }
 
+    @Override
+    public String toString() {
+        return "GetProjectsRequest{" +
+                "typeIndicator=" + typeIndicator +
+                '}';
+    }
 }

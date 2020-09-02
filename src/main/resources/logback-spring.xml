@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+	<timestamp key="bySecond" datePattern="HH.mm.ss" />
+    <property resource="application.properties" />
+    <property name="pathToHomeLog" value="${pathToHomeLog}"/>
+    <property name="rollingSize" value="${rollingSize}" />
+    <property name="serverName" value="${app.server.name}" />
+
+    <appender name="debugFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${pathToHomeLog}/DEBUG/${serverName}-aszp-soap-DEBUG.log</File>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+<!--			<charset>IBM1025</charset>-->
+			<pattern>%-5level %d [%thread] %logger{0}: %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${pathToHomeLog}/DEBUG/${serverName}-aszp-soap-DEBUG-%d{yyyy-MM-dd}_${bySecond}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${rollingSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender><appender name="infoFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${pathToHomeLog}/INFO/${serverName}-aszp-soap-INFO.log</File>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+<!--			<charset>IBM1025</charset>-->
+			<pattern>%-5level %d [%thread] %logger{0}: %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${pathToHomeLog}/INFO/${serverName}-aszp-soap-INFO-%d{yyyy-MM-dd}_${bySecond}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${rollingSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+
+	<appender name="warnFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${pathToHomeLog}/WARN/${serverName}-aszp-soap-WARN.log</File>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+<!--			<charset>IBM1025</charset>-->
+			<pattern>%-5level %d [%thread] %logger{0}: %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${pathToHomeLog}/WARN/${serverName}-aszp-soap-WARN-%d{yyyy-MM-dd}_${bySecond}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${rollingSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="errorFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${pathToHomeLog}/ERROR/${serverName}-aszp-soap-ERROR.log</File>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+<!--			<charset>IBM1025</charset>-->
+			<pattern>%-5level %d [%thread] %logger{0}: %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${pathToHomeLog}/ERROR/${serverName}-aszp-soap-ERROR-%d{yyyy-MM-dd}_${bySecond}.%i.log.zip</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>${rollingSize}</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+	</appender>
+	
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+	<logger name="rzd.pktbcdt.aszp.soap">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+        <appender-ref ref="infoFile"/>
+	</logger>
+
+    <!--<logger name="org.springframework.core">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+        <appender-ref ref="infoFile"/>
+	</logger>
+
+
+    <logger name="org.springframework.beans">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+        <appender-ref ref="infoFile"/>
+	</logger>
+    <logger name="org.springframework.context">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+        <appender-ref ref="infoFile"/>
+	</logger>-->
+
+	<logger name="org.springframework.ws.server.MessageTracing">
+		<level value="TRACE"/>
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="infoFile"/>
+	</logger>
+
+</configuration>
