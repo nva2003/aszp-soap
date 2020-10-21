@@ -69,3 +69,18 @@ Next, the DefaultWsdl11Definition will generate the specification with schema pr
 returning XsdSchema. Here you can set the aforementioned suffixes. 
 Don't forget to add @EnableWs annotation to your @Configuration 
 so that the Spring Boot will load necessary WS mappings provided by *WsConfigurationSupport*. 
+
+####git help for myself
+#####add remote
+
+git remote add gitlab <http://gitlabhost/.../aszp-soap.git>
+
+git config credential.helper store
+
+git remote -v
+
+git fetch gitlab
+
+#####push
+git push origin master
+git push gitlab master
