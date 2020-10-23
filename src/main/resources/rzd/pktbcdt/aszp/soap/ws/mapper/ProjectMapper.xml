@@ -46,9 +46,9 @@
 
         where
             PR."idType" != 3
-            <if test="year != null and year !=''">
+            <if test="date != null">
                 <![CDATA[
-                and PR."dateEndProject" <= #{date}
+                and PR."dateEndProject" >= #{date}
                 ]]>
             </if>
            <if test="idProject != null">

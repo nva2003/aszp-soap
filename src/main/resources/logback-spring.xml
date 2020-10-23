@@ -155,4 +155,20 @@
 		<appender-ref ref="infoFile"/>
 	</logger>
 
+	<logger name="rzd.pktbcdt.aszp.soap.ws">
+		<level value="ERROR"/>
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="infoFile"/>
+	</logger>
+
+	<logger name="rzd.pktbcdt.aszp.soap.ws.mapper">
+		<level value="DEBUG"/>
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="infoFile"/>
+	</logger>
+
 </configuration>

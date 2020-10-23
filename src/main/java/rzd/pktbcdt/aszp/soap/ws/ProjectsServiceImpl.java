@@ -36,7 +36,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     public List<Project> getProjects(GetProjectsRequest request) {
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
-        paramMap.put("date", request.getDate());
+        paramMap.put("date", new java.sql.Date(request.getDate().getTime()));
         //todo: отсев по дате
          List<Project> projects = projectMapper.getProjects(paramMap);
          return projects;
