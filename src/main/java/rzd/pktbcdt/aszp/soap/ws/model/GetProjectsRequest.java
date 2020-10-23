@@ -11,6 +11,7 @@ package rzd.pktbcdt.aszp.soap.ws.model;
 import rzd.pktbcdt.aszp.soap.ws.WSEndpoint;
 
 import javax.xml.bind.annotation.*;
+import java.util.Date;
 
 
 /**
@@ -20,11 +21,13 @@ import javax.xml.bind.annotation.*;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "typeIndicator"
+    "idProject"
+    ,"year"
+    ,"date"
     },
         namespace = WSEndpoint.NAMESPACE_URI
 )
-@XmlRootElement(name = "getProjectsRequest", namespace = WSEndpoint.NAMESPACE_URI)
+@XmlRootElement(name = WSEndpoint.GET_PROJECT_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class GetProjectsRequest {
 
     @XmlElement(
@@ -33,36 +36,58 @@ public class GetProjectsRequest {
     )
 
 //    @Documentation
-    protected Integer typeIndicator;
+
+    protected Integer year;
+    private Long idProject;
+    @XmlElement(name = "dateEndProject", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    @XmlSchemaType(name = "dateTime")
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public Long getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(Long idProject) {
+        this.idProject = idProject;
+    }
 
     /**
-     * Gets the value of the typeIndicator property.
+     * Gets the value of the year property.
      * 
      * @return
      *     possible object is
      *     {@link int }
      *     
      */
-    public Integer getTypeIndicator() {
-        return typeIndicator;
+    public Integer getYear() {
+        return year;
     }
 
     /**
-     * Sets the value of the typeIndicator property.
+     * Sets the value of the Year property.
      * 
      * @param value
      *     allowed object is
      *     {@link int }
      *     
      */
-    public void setTypeIndicator(Integer value) {
-        this.typeIndicator = value;
+    public void setYear(Integer value) {
+        this.year = value;
     }
 
     @Override
     public String toString() {
         return "GetProjectsRequest{" +
-                "typeIndicator=" + typeIndicator +
+                "year=" + year +
+                ", idProject='" + idProject + '\'' +
                 '}';
     }
 }

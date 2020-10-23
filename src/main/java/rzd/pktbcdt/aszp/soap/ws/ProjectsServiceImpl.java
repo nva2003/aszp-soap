@@ -3,7 +3,9 @@ package rzd.pktbcdt.aszp.soap.ws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper;
+import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsRequest;
 import rzd.pktbcdt.aszp.soap.ws.model.Project;
+import rzd.pktbcdt.aszp.soap.ws.model.ProjectInfo;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -17,22 +19,26 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
     @Override
-    public List<Project> getProjectsWithKeyIndicators(Integer typeIndicator) {
-        Map<String, Serializable> map = new HashMap<String, Serializable>();
-        map.put("typeIndicator", typeIndicator);
+    public List<ProjectInfo> getProjectsInfo(GetProjectsRequest request) {
+        ProjectInfo projectInfo = new ProjectInfo();
+        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
+        paramMap.put("idProject", request.getIdProject());
+        paramMap.put("year", request.getYear());
 
-        List<Project> projectsWithKeyIndicators = projectMapper.getProjectsWithKeyIndicators(map);
+        List<?> projectIndicators = projectMapper.getProjectIndicators(paramMap);
 
-        return projectsWithKeyIndicators;
+        return null;
     }
 
-    @Override
-    public void getKeyIndicators(int projectId) {
-//todo
-    }
+
 
     @Override
-    public void getProjects(int projectId) {
-//todo
+    public List<Project> getProjects(GetProjectsRequest request) {
+        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
+        paramMap.put("idProject", request.getIdProject());
+        paramMap.put("date", request.getDate());
+        //todo: отсев по дате
+         List<Project> projects = projectMapper.getProjects(paramMap);
+         return projects;
     }
 }

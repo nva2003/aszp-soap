@@ -7,5 +7,8 @@ import java.util.Map;
 
 @Mapper
 public interface ProjectMapper {
-    List<Project> getProjectsWithKeyIndicators(Map map);
+    List<Project> getProjects(Map map);
+    List<Project> getProjectRisks(Map map);
+    List<Project> getProjectIndicators(Map map);
+    List<Project> getProjectRoadMap(Map map);
 }

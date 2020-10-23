@@ -18,15 +18,14 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProjectsRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_REQUEST_LOCAL_PART)
     @ResponsePayload
     public GetProjectsResponse getProjects(@RequestPayload GetProjectsRequest request) {
 
         logger.debug("request = " + request.toString());
 
         GetProjectsResponse response = new GetProjectsResponse();
-        //todo: typeIndicator analyse
-        response.setProjects(projectsService.getProjectsWithKeyIndicators(request.getTypeIndicator()));
+        response.setProjects(projectsService.getProjects(request));
 
         return response;
     }

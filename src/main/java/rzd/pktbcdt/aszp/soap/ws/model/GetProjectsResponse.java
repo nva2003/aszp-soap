@@ -23,13 +23,13 @@ import java.util.List;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "GetProjectsResponse",
+@XmlType(name = WSEndpoint.GET_PROJECT_RESPONSE_LOCAL_PART,
         propOrder = {
         "projects"
         },
         namespace = WSEndpoint.NAMESPACE_URI
 )
-@XmlRootElement(name = "getProjectsResponse", namespace = WSEndpoint.NAMESPACE_URI)
+@XmlRootElement(name = WSEndpoint.GET_PROJECT_RESPONSE_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class GetProjectsResponse {
 
     @XmlElement(name = "Projects", required = true, namespace = WSEndpoint.NAMESPACE_URI)

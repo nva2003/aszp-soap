@@ -3,54 +3,104 @@
 
 <mapper namespace="rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper">
 
-    <select id="getProjectsWithKeyIndicators" resultMap="projectsMap" parameterType="map" >
+    <select id="getProjects" resultMap="projectsMap" parameterType="map" >
         SELECT
-        PR."idProject"
-        ,PR."nameProject"
-        ,PR."nameProjectFull"
-        ,PR."descriptionProject"
-        ,PR."dateBeginProject"
-        ,PR."dateEndProject"
-        ,I."nameEco"
-        ,I."typeEco"
-        ,I."idEco"
-        ,IV."idProc"
-        ,IV."yearProc"
-        ,IV."halfProc"
-        ,IV."quarterProc"
-        ,IV."monthProc"
-        ,IV."planProc"
-        ,IV."realProc"
+            PR."idProject"
+             ,PR."nameProject"
+             ,PR."nameProjectFull"
+             ,PR."descriptionProject"
+             ,PR."dateBeginProject"
+             ,PR."dateEndProject"
+             ,PR."date_start"
+             ,PR."nameAgreement"
+             ,PR."cost"
+             ,PR."costCurrency"
+             ,PR."idCountry"
+             ,PR."idManager"
+             ,PR."idCEO"
+             ,PR."main_worker"
+             ,U1."full_name" as manager
+             ,U2."full_name" as ceo
+             ,U3."full_name" as worker
+             ,TP."nameAgreement" as typeProjectName
+             ,COUNTRIES."nameCountry"
+
 
         FROM
-        public.tbl_projects PR
-        left outer join
-        public.tbl_ecos I
-        on PR."idProject" = I."idProject"
-        left outer join
-        public.tbl_ecoprocs IV
-        on IV."idEco"=I."idEco"
+            public.tbl_projects PR
+                left outer join
+            public.user U1
+                on PR."idManager" = U1."id"
+                left outer join
+            public.user U2
+                on PR."idCEO" = U2."id"
+                left outer join
+            public.user U3
+                on PR."main_worker" = U3."id"
+                left outer join
+            public.tbl_agreements TP
+                on PR."nameAgreement"=TP."id"
+                left outer join
+            public.tbl_countries COUNTRIES
+                on PR."idCountry"=COUNTRIES."idCountry"
 
         where
             PR."idType" != 3
-            <if test="typeIndicator != null and typeIndicator !=''">
-              and I."typeEco" = #{typeIndicator}
+            <if test="year != null and year !=''">
+                <![CDATA[
+                and PR."dateEndProject" <= #{date}
+                ]]>
             </if>
            <if test="idProject != null">
-              and PR."idProject = #{idProject}
+              and PR."idProject" = #{idProject}
             </if>
-            <choose>
-                <when test="year != null">
-                    and IV."yearProc" = #{year}
-                </when>
-                <otherwise>
-                    and IV."yearProc"=date_part('year',CURRENT_DATE)
-                </otherwise>
-            </choose>
 
 
+    </select>
 
+    <select id="getProjectRisks" resultMap="riskMap" parameterType="map" >
+        SELECT
+            PR."name"
+             ,PR."impact"
+             ,PR."probability"
+             ,PR."status"
+        FROM
+            public.tbl_risks PR
+        where
+                PR."project_id" = #{idProject}
+            and PR.confirmed = true
 
+    </select>
+    <!--    val == 0 ? 'Не реализован' : 'Реализован'-->
+    <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
+        SELECT
+            IV."indicator_id"
+            ,IV."year"
+             ,IV."type" as perType
+             ,IV."type_value" as perValue
+             ,IV."plan"
+             ,IV."real"
+             ,IV."prognosis"
+            ,KI."type" as indicatorType
+            ,KI."name" as indicatorName
+        FROM
+             public.tbl_key_indicators_values IV
+            left outer join
+                public.tbl_key_indicators KI
+                on IV."indicator_id" = KI."id"
+        where project_id= #{idProject}
+          and
+            exists(
+                    select confirmed FROM public.tbl_key_indicators_projects where project_id = #{idProject}
+                )
+                <choose>
+                    <when test="year != null">
+                        and IV."year" = #{year}
+                    </when>
+                    <otherwise>
+                        and IV."year"=date_part('year',CURRENT_DATE)
+                    </otherwise>
+                </choose>
     </select>
 
 
@@ -63,9 +113,35 @@
         <result property="descriptionProject" column="descriptionProject"/>
         <result property="dateBeginProject" column="dateBeginProject"/>
         <result property="dateEndProject" column="dateEndProject"/>
+        <result property="dateStart" column="typeProject"/>
+        <result property="typeProject" column="nameAgreement"/>
+        <result property="typeProjectName" column="typeProjectName"/>
+        <result property="cost" column="cost"/>
+        <result property="costCurrency" column="costCurrency"/>
+        <result property="idCountry" column="idCountry"/>
+        <result property="country" column="nameCountry"/>
+        <result property="manager" column="manager"/>
+        <result property="ceo" column="ceo"/>
+        <result property="worker" column="worker"/>
+
+    </resultMap>
+
+
+
+
+    <resultMap id="riskMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
+
+    </resultMap>
+    <resultMap id="indicatorMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
+        <id  property="idProject" column="idProject"/>
+        <result property="nameProject" column="nameProject"/>
+        <result property="nameProjectFull" column="nameProjectFull"/>
+        <result property="descriptionProject" column="descriptionProject"/>
+        <result property="dateBeginProject" column="dateBeginProject"/>
+        <result property="dateEndProject" column="dateEndProject"/>
         <result property="typeProject" column="typeProject"/>
 
-        <collection property="indicators" ofType="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
+<!--        <collection property="indicators" ofType="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
             <result property="idIndicator" column="idEco"/>
             <result property="typeIndicator" column="typeEco"/>
             <result property="nameIndicator" column="nameEco"/>
@@ -81,7 +157,7 @@
             </collection>
 
 
-        </collection>
+        </collection>-->
 
 
 

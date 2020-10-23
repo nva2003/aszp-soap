@@ -20,6 +20,7 @@
 		<start-class>rzd.pktbcdt.aszp.soap.AszpSoapApplication</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<outDir>C:\MyProjects\Applications</outDir>
 	</properties>
 
 	<dependencies>
