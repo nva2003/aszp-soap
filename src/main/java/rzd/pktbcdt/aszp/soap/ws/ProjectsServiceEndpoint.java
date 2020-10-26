@@ -9,6 +9,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsRequest;
 import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsResponse;
+import rzd.pktbcdt.aszp.soap.ws.model.ProjectInfoResponse;
 
 @Endpoint
 public class ProjectsServiceEndpoint implements WSEndpoint{
@@ -28,5 +29,15 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
         response.setProjects(projectsService.getProjects(request));
 
         return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_INFO_REQUEST_LOCAL_PART)
+    @ResponsePayload
+    public ProjectInfoResponse getProjectsInfo(@RequestPayload GetProjectsRequest request) {
+
+        logger.debug("request = " + request.toString());
+
+        return projectsService.getProjectsInfo(request);
+
     }
 }

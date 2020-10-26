@@ -115,16 +115,10 @@
         </layout>
     </appender>
 
-	<logger name="rzd.pktbcdt.aszp.soap">
-        <level value="INFO"/>
-        <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="debugFile" />
-		<appender-ref ref="errorFile" />
-        <appender-ref ref="infoFile"/>
-	</logger>
 
-    <!--<logger name="org.springframework.core">
-        <level value="INFO"/>
+<!--
+    <logger name="org.springframework.core">
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="debugFile" />
 		<appender-ref ref="errorFile" />
@@ -133,19 +127,20 @@
 
 
     <logger name="org.springframework.beans">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="debugFile" />
 		<appender-ref ref="errorFile" />
         <appender-ref ref="infoFile"/>
 	</logger>
     <logger name="org.springframework.context">
-        <level value="INFO"/>
+        <level value="DEBUG"/>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="debugFile" />
 		<appender-ref ref="errorFile" />
         <appender-ref ref="infoFile"/>
-	</logger>-->
+	</logger>
+-->
 
 	<logger name="org.springframework.ws.server.MessageTracing">
 		<level value="TRACE"/>
@@ -155,6 +150,15 @@
 		<appender-ref ref="infoFile"/>
 	</logger>
 
+	<logger name="rzd.pktbcdt.aszp.soap">
+        <level value="INFO"/>
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+        <appender-ref ref="infoFile"/>
+	</logger>
+
+<!--
 	<logger name="rzd.pktbcdt.aszp.soap.ws">
 		<level value="ERROR"/>
 		<appender-ref ref="CONSOLE"/>
@@ -162,6 +166,7 @@
 		<appender-ref ref="errorFile" />
 		<appender-ref ref="infoFile"/>
 	</logger>
+-->
 
 	<logger name="rzd.pktbcdt.aszp.soap.ws.mapper">
 		<level value="DEBUG"/>

@@ -20,36 +20,24 @@ import java.util.Date;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getProjectsRequest", propOrder = {
+//@XmlType(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, propOrder = {
+@XmlType(name = "ProjectsInfoRequest", propOrder = {
     "idProject"
     ,"year"
-    ,"date"
     },
         namespace = WSEndpoint.NAMESPACE_URI
 )
-@XmlRootElement(name = WSEndpoint.GET_PROJECT_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
-public class GetProjectsRequest {
+//@XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
+public class ProjectsInfoRequest {
 
-    @XmlElement(
-            required = false, nillable = false
-            , namespace = WSEndpoint.NAMESPACE_URI
-    )
 
-//    @Documentation
 
+    @XmlElement(name = "year", required = true, nillable = false, namespace = WSEndpoint.NAMESPACE_URI)
     private Integer year;
+    @XmlElement(name = "idProject", required = true, nillable = false, namespace = WSEndpoint.NAMESPACE_URI)
     private Long idProject;
-    @XmlElement(name = "dateEndProject", required = false, namespace = WSEndpoint.NAMESPACE_URI)
-    @XmlSchemaType(name = "dateTime")
-    private Date date;
 
-    public Date getDate() {
-        return date;
-    }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
 
     public Long getIdProject() {
         return idProject;

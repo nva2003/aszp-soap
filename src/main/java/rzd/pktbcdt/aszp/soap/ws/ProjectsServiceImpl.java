@@ -3,9 +3,7 @@ package rzd.pktbcdt.aszp.soap.ws;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper;
-import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsRequest;
-import rzd.pktbcdt.aszp.soap.ws.model.Project;
-import rzd.pktbcdt.aszp.soap.ws.model.ProjectInfo;
+import rzd.pktbcdt.aszp.soap.ws.model.*;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -19,15 +17,22 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
     @Override
-    public List<ProjectInfo> getProjectsInfo(GetProjectsRequest request) {
-        ProjectInfo projectInfo = new ProjectInfo();
+    public ProjectInfoResponse getProjectsInfo(GetProjectsRequest request) {
+        ProjectInfoResponse projectInfo = new ProjectInfoResponse();
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
         paramMap.put("year", request.getYear());
 
-        List<?> projectIndicators = projectMapper.getProjectIndicators(paramMap);
+        List<Project> projects = projectMapper.getProjects(paramMap);
+        List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
+        List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
 
-        return null;
+        projectInfo.setProject(projects.get(0));
+        projectInfo.setRisks(projectRisks);
+        projectInfo.setIndicators(projectIndicators);
+
+
+        return projectInfo;
     }
 
 

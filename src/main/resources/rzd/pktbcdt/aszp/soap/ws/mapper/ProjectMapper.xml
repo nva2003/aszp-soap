@@ -60,7 +60,8 @@
 
     <select id="getProjectRisks" resultMap="riskMap" parameterType="map" >
         SELECT
-            PR."name"
+            PR."id"
+            ,PR."name"
              ,PR."impact"
              ,PR."probability"
              ,PR."status"
@@ -71,22 +72,23 @@
             and PR.confirmed = true
 
     </select>
-    <!--    val == 0 ? 'Не реализован' : 'Реализован'-->
+
     <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
-        SELECT
-            IV."indicator_id"
-            ,IV."year"
-             ,IV."type" as perType
-             ,IV."type_value" as perValue
-             ,IV."plan"
-             ,IV."real"
-             ,IV."prognosis"
-            ,KI."type" as indicatorType
-            ,KI."name" as indicatorName
-        FROM
-             public.tbl_key_indicators_values IV
-            left outer join
-                public.tbl_key_indicators KI
+    SELECT
+        KI."id" as idIndicator
+        ,KI."type" as indicatorType
+        ,KI."name" as indicatorName
+        ,IV."id" as idIndicatorValue
+        ,IV."year"
+        ,IV."type" as perType
+        ,IV."type_value" as perValue
+        ,IV."plan" as planValue
+        ,IV."real" as realValue
+        ,IV."prognosis"
+     FROM
+         public.tbl_key_indicators KI
+             left outer join
+         public.tbl_key_indicators_values IV
                 on IV."indicator_id" = KI."id"
         where project_id= #{idProject}
           and
@@ -128,40 +130,27 @@
 
 
 
-
-    <resultMap id="riskMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
-
+    <resultMap id="riskMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Risk">
+        <id  property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="impact" column="impact"/>
+        <result property="probability" column="probability"/>
+        <result property="status" column="status"/>
     </resultMap>
-    <resultMap id="indicatorMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
-        <id  property="idProject" column="idProject"/>
-        <result property="nameProject" column="nameProject"/>
-        <result property="nameProjectFull" column="nameProjectFull"/>
-        <result property="descriptionProject" column="descriptionProject"/>
-        <result property="dateBeginProject" column="dateBeginProject"/>
-        <result property="dateEndProject" column="dateEndProject"/>
-        <result property="typeProject" column="typeProject"/>
 
-<!--        <collection property="indicators" ofType="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
-            <result property="idIndicator" column="idEco"/>
-            <result property="typeIndicator" column="typeEco"/>
-            <result property="nameIndicator" column="nameEco"/>
-
+    <resultMap id="indicatorMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
+        <id  property="idIndicator" column="idIndicator"/>
+        <result property="indicatorType" column="indicatorType"/>
+        <result property="indicatorName" column="indicatorName"/>
             <collection property="indicatorValues" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorValue">
-                <result property="idIndicatorValue" column="idProc"/>
-                <result property="year" column="yearProc"/>
-                <result property="half" column="halfProc"/>
-                <result property="quarter" column="quarterProc"/>
-                <result property="month" column="monthProc"/>
-                <result property="planValue" column="planProc"/>
-                <result property="realValue" column="realProc"/>
+                <result property="idIndicatorValue" column="idIndicatorValue"/>
+                <result property="year" column="year"/>
+                <result property="perType" column="perType"/>
+                <result property="perValue" column="perValue"/>
+                <result property="planValue" column="planValue"/>
+                <result property="realValue" column="realValue"/>
+                <result property="prognosis" column="prognosis"/>
             </collection>
-
-
-        </collection>-->
-
-
-
-
 
     </resultMap>
 
