@@ -24,6 +24,76 @@
              ,U3."full_name" as worker
              ,TP."nameAgreement" as typeProjectName
              ,COUNTRIES."nameCountry"
+            ,TPS."parent_id"
+            ,TPS."child_id"
+
+        FROM
+            public.tbl_projects PR
+                left outer join
+            public.user U1
+                on PR."idManager" = U1."id"
+                left outer join
+            public.user U2
+                on PR."idCEO" = U2."id"
+                left outer join
+            public.user U3
+                on PR."main_worker" = U3."id"
+                left outer join
+            public.tbl_agreements TP
+                on PR."nameAgreement"=TP."id"
+                left outer join
+            public.tbl_countries COUNTRIES
+                on PR."idCountry"=COUNTRIES."idCountry"
+                left outer join
+            public.tbl_projects_subs TPS
+                on TPS."child_id" = PR."idProject"
+
+        where
+            PR."idType" != 3
+            <if test="date != null">
+                <![CDATA[
+                and PR."dateEndProject" >= #{date}
+                ]]>
+            </if>
+        and exists(
+              select true FROM public.tbl_projects_subs TPS where TPS."parent_id" = PR."idProject" and TPS."level" = 1
+                      )
+
+
+    </select>
+
+    <select id="getSubProject" resultMap="projectsMap" parameterType="map" >
+        SELECT
+            TPS."child_id"
+        FROM
+            public.tbl_projects_subs TPS
+        where
+                TPS."parent_id" = #{idProject}
+            and TPS.child_id != parent_id
+
+    </select>
+
+    <select id="getProjectsInfo" resultMap="projectsMap" parameterType="map" >
+        SELECT
+            PR."idProject"
+             ,PR."nameProject"
+             ,PR."nameProjectFull"
+             ,PR."descriptionProject"
+             ,PR."dateBeginProject"
+             ,PR."dateEndProject"
+             ,PR."date_start"
+             ,PR."nameAgreement"
+             ,PR."cost"
+             ,PR."costCurrency"
+             ,PR."idCountry"
+             ,PR."idManager"
+             ,PR."idCEO"
+             ,PR."main_worker"
+             ,U1."full_name" as manager
+             ,U2."full_name" as ceo
+             ,U3."full_name" as worker
+             ,TP."nameAgreement" as typeProjectName
+             ,COUNTRIES."nameCountry"
 
 
         FROM
@@ -46,14 +116,7 @@
 
         where
             PR."idType" != 3
-            <if test="date != null">
-                <![CDATA[
-                and PR."dateEndProject" >= #{date}
-                ]]>
-            </if>
-           <if test="idProject != null">
-              and PR."idProject" = #{idProject}
-            </if>
+            and PR."idProject" = #{idProject}
 
 
     </select>
@@ -70,8 +133,8 @@
         where
                 PR."project_id" = #{idProject}
             and PR.confirmed = true
-
     </select>
+
 
     <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
     SELECT
