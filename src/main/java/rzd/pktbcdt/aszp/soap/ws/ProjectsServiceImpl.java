@@ -21,7 +21,6 @@ public class ProjectsServiceImpl implements ProjectsService {
         ProjectInfoResponse projectInfo = new ProjectInfoResponse();
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
-        paramMap.put("year", request.getYear());
 
         List<Project> projects = projectMapper.getProjects(paramMap);
         List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
@@ -41,8 +40,9 @@ public class ProjectsServiceImpl implements ProjectsService {
     public List<Project> getProjects(GetProjectsRequest request) {
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
-        paramMap.put("date", new java.sql.Date(request.getDate().getTime()));
-        //todo: отсев по дате
+        if (request.getDate() != null) {
+            paramMap.put("date", new java.sql.Date(request.getDate().getTime()));
+        }
          List<Project> projects = projectMapper.getProjects(paramMap);
          return projects;
     }

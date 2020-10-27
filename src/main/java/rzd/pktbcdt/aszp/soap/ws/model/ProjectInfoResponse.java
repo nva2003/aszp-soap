@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ProjectInfoResponse",
-//@XmlType(name = WSEndpoint.GET_PROJECT_INFO_RESPONSE_LOCAL_PART,
+//@XmlType(name = "ProjectInfoResponse",
+@XmlType(name = WSEndpoint.GET_PROJECT_INFO_RESPONSE_LOCAL_PART,
         propOrder = {
         "project"
         ,"risks"
@@ -15,7 +15,7 @@ import java.util.List;
         } ,
         namespace = WSEndpoint.NAMESPACE_URI
 )
-//@XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_RESPONSE_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
+@XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_RESPONSE_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class ProjectInfoResponse {
 
     @XmlElement(name = "project", required = true, namespace = WSEndpoint.NAMESPACE_URI)

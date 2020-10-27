@@ -20,14 +20,14 @@ import java.util.Date;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-//@XmlType(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, propOrder = {
-@XmlType(name = "ProjectsInfoRequest", propOrder = {
+@XmlType(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, propOrder = {
+//@XmlType(name = "ProjectsInfoRequest", propOrder = {
     "idProject"
     ,"year"
     },
         namespace = WSEndpoint.NAMESPACE_URI
 )
-//@XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
+@XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class ProjectsInfoRequest {
 
 

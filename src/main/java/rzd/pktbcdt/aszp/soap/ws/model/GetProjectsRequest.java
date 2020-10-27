@@ -22,7 +22,6 @@ import java.util.Date;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getProjectsRequest", propOrder = {
     "idProject"
-    ,"year"
     ,"date"
     },
         namespace = WSEndpoint.NAMESPACE_URI
@@ -37,7 +36,6 @@ public class GetProjectsRequest {
 
 //    @Documentation
 
-    private Integer year;
     private Long idProject;
     @XmlElement(name = "dateEndProject", required = false, namespace = WSEndpoint.NAMESPACE_URI)
     @XmlSchemaType(name = "dateTime")
@@ -51,43 +49,37 @@ public class GetProjectsRequest {
         this.date = date;
     }
 
+
+
+    /**
+     * Gets the value of the ID Project property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Long }
+     *     
+     */
     public Long getIdProject() {
         return idProject;
     }
 
+    /**
+     * Sets the value of the ID Project property.
+     * 
+     * @param idProject
+     *     allowed object is
+     *     {@link Long }
+     *     
+     */
     public void setIdProject(Long idProject) {
         this.idProject = idProject;
-    }
-
-    /**
-     * Gets the value of the year property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link int }
-     *     
-     */
-    public Integer getYear() {
-        return year;
-    }
-
-    /**
-     * Sets the value of the Year property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link int }
-     *     
-     */
-    public void setYear(Integer value) {
-        this.year = value;
     }
 
     @Override
     public String toString() {
         return "GetProjectsRequest{" +
-                "year=" + year +
-                ", idProject='" + idProject + '\'' +
+                "idProject=" + idProject +
+                ", date=" + date +
                 '}';
     }
 }
