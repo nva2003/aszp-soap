@@ -20,6 +20,7 @@
 			<onMismatch>DENY</onMismatch>
 		</filter>
 
+
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<fileNamePattern>${pathToHomeLog}/DEBUG/${serverName}-aszp-soap-DEBUG-%d{yyyy-MM-dd}_${bySecond}.%i.log.zip</fileNamePattern>
