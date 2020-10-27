@@ -17,18 +17,21 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
     @Override
-    public ProjectInfoResponse getProjectsInfo(GetProjectsRequest request) {
+    public ProjectInfoResponse getProjectsInfo(ProjectsInfoRequest request) {
         ProjectInfoResponse projectInfo = new ProjectInfoResponse();
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
+        paramMap.put("year", request.getYear());
 
         List<Project> projects = projectMapper.getProjects(paramMap);
         List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
         List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
 
-        projectInfo.setProject(projects.get(0));
-        projectInfo.setRisks(projectRisks);
-        projectInfo.setIndicators(projectIndicators);
+        if ( ! projects.isEmpty()){
+            projectInfo.setProject(projects.get(0));
+            projectInfo.setRisks(projectRisks);
+            projectInfo.setIndicators(projectIndicators);
+        }
 
 
         return projectInfo;

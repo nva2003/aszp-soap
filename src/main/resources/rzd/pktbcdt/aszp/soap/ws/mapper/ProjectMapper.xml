@@ -76,12 +76,12 @@
     <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
     SELECT
         KI."id" as idIndicator
-        ,KI."type" as indicatorType
-        ,KI."name" as indicatorName
+        ,KI."type" as typeIndicator
+        ,KI."name" as nameIndicator
         ,IV."id" as idIndicatorValue
         ,IV."year"
-        ,IV."type" as perType
-        ,IV."type_value" as perValue
+        ,IV."type" as periodType
+        ,IV."type_value" as periodValue
         ,IV."plan" as planValue
         ,IV."real" as realValue
         ,IV."prognosis"
@@ -91,6 +91,7 @@
          public.tbl_key_indicators_values IV
                 on IV."indicator_id" = KI."id"
         where project_id= #{idProject}
+--         and KI."type"=0
           and
             exists(
                     select confirmed FROM public.tbl_key_indicators_projects where project_id = #{idProject}
@@ -140,13 +141,13 @@
 
     <resultMap id="indicatorMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
         <id  property="idIndicator" column="idIndicator"/>
-        <result property="indicatorType" column="indicatorType"/>
-        <result property="indicatorName" column="indicatorName"/>
+        <result property="typeIndicator" column="typeIndicator"/>
+        <result property="nameIndicator" column="nameIndicator"/>
             <collection property="indicatorValues" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorValue">
                 <result property="idIndicatorValue" column="idIndicatorValue"/>
                 <result property="year" column="year"/>
-                <result property="perType" column="perType"/>
-                <result property="perValue" column="perValue"/>
+                <result property="periodType" column="periodType"/>
+                <result property="periodValue" column="periodValue"/>
                 <result property="planValue" column="planValue"/>
                 <result property="realValue" column="realValue"/>
                 <result property="prognosis" column="prognosis"/>
