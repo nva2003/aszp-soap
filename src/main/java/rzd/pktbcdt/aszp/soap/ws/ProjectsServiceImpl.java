@@ -23,12 +23,12 @@ public class ProjectsServiceImpl implements ProjectsService {
         paramMap.put("idProject", request.getIdProject());
         paramMap.put("year", request.getYear());
 
-        List<Project> projects = projectMapper.getProjects(paramMap);
+        Project projectsInfo = projectMapper.getProjectsInfo(paramMap);
         List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
         List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
 
-        if ( ! projects.isEmpty()){
-            projectInfo.setProject(projects.get(0));
+        if ( projectsInfo != null){
+            projectInfo.setProject(projectsInfo);
             projectInfo.setRisks(projectRisks);
             projectInfo.setIndicators(projectIndicators);
         }
