@@ -12,6 +12,7 @@ import java.util.List;
         "project"
         ,"risks"
         ,"indicators"
+        ,"roadMapList"
         } ,
         namespace = WSEndpoint.NAMESPACE_URI
 )
@@ -27,6 +28,9 @@ public class ProjectInfoResponse {
 
     @XmlElement(name = "indicators", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Indicator> indicators;
+
+    @XmlElement(name = "roadMapList", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private List<RoadMap> roadMapList;
 
 
 
@@ -73,4 +77,24 @@ public class ProjectInfoResponse {
     public void setIndicators(List<Indicator> indicators) {
         this.indicators = indicators;
     }
+
+    public List<RoadMap> getRoadMapList() {
+        return roadMapList;
+    }
+
+    public void setRoadMapList(List<RoadMap> roadMapList) {
+        this.roadMapList = roadMapList;
+    }
+
+    @Override
+    public String toString() {
+        return "ProjectInfoResponse{" +
+                "project=" + project +
+                ", risks=" + risks +
+                ", indicators=" + indicators +
+                ", roadMapList=" + roadMapList +
+                '}';
+    }
 }
+
+

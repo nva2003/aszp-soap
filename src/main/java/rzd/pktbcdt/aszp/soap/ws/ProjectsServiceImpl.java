@@ -26,11 +26,13 @@ public class ProjectsServiceImpl implements ProjectsService {
         Project projectsInfo = projectMapper.getProjectsInfo(paramMap);
         List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
         List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
+        List<RoadMap> projectRoadMap = projectMapper.getProjectRoadMap(paramMap);
 
         if ( projectsInfo != null){
             projectInfo.setProject(projectsInfo);
             projectInfo.setRisks(projectRisks);
             projectInfo.setIndicators(projectIndicators);
+            projectInfo.setRoadMapList(projectRoadMap);
         }
 
 

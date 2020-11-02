@@ -191,6 +191,29 @@
     </select>
 
 
+    <select id="getProjectRoadMap" resultMap="roadMap" parameterType="map" >
+        SELECT
+            TS."idStep"
+            ,TS."nameStep"
+            ,TS."dateBeginStep"
+            ,TS."dateEndStep"
+            ,TS."winNext"
+            ,TS."loseNext"
+            ,TS."isSub"
+            ,TS."reasonStep"
+            ,TS."actionStep"
+            ,TS."statusStep" as statusStepId
+            ,TSS."nameStatusStep" as statusStepName
+
+        FROM
+        public.tbl_steps TS
+         left outer join
+            public.tbl_statusstep TSS
+         on TS."statusStep" = TSS."idStatusStep"
+        where
+            TS."idProject" = #{idProject}
+            and TS.confirmed = true
+    </select>
 
 
     <resultMap id="projectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Project">
@@ -245,8 +268,19 @@
 
     </resultMap>
 
-
-
-
+    <resultMap id="roadMap"  type="rzd.pktbcdt.aszp.soap.ws.model.RoadMap">
+        <id  property="idStep" column="idStep"/>
+        <result property="nameStep" column="nameStep"/>
+        <result property="dateBeginStep" column="dateBeginStep"/>
+        <result property="dateEndStep" column="dateEndStep"/>
+        <result property="winNext" column="winNext"/>
+        <result property="loseNext" column="loseNext"/>
+        <result property="isSub" column="isSub"/>
+        <result property="reasonStep" column="reasonStep"/>
+        <result property="actionStep" column="actionStep"/>
+        <result property="statusStepId" column="statusStepId"/>
+        <result property="statusStepName" column="statusStepName"/>
+        <result property="" column=""/>
+    </resultMap>
 
 </mapper>
