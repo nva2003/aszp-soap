@@ -197,6 +197,7 @@
             ,TS."nameStep"
             ,TS."dateBeginStep"
             ,TS."dateEndStep"
+            ,TS."numberStep"
             ,TS."winNext"
             ,TS."loseNext"
             ,TS."isSub"
@@ -273,6 +274,7 @@
         <result property="nameStep" column="nameStep"/>
         <result property="dateBeginStep" column="dateBeginStep"/>
         <result property="dateEndStep" column="dateEndStep"/>
+        <result property="numberStep" column="numberStep"/>
         <result property="winNext" column="winNext"/>
         <result property="loseNext" column="loseNext"/>
         <result property="isSub" column="isSub"/>

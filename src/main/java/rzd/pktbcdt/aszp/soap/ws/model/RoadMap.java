@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Date;
 
+
 /**
  * User: VNikishin
  * Date: 26.10.2020
@@ -20,6 +21,7 @@ import java.util.Date;
                 "dateEndStep",
                 "statusStepId",
                 "statusStepName",
+                "numberStep",
                 "winNext",
                 "loseNext",
                 "isSub",
@@ -60,6 +62,11 @@ private static final Logger logger = LoggerFactory.getLogger( RoadMap.class );
     */
     @XmlElement(name = "nameStep", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private String nameStep;
+    /*
+        Задает порядок этапа/подэтапа. равен 1000 - если это первый этап или подэтап
+    */
+    @XmlElement(name = "numberStep", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private String numberStep;
     /*
         Дата начала
     */
@@ -106,6 +113,24 @@ private static final Logger logger = LoggerFactory.getLogger( RoadMap.class );
     |               M E T H O D S               |
     ============================================*/
 
+    @Override
+    public String toString() {
+        return "RoadMap{" +
+                "idStep=" + idStep +
+                ", nameStep='" + nameStep + '\'' +
+                ", numberStep='" + numberStep + '\'' +
+                ", dateBeginStep=" + dateBeginStep +
+                ", dateEndStep=" + dateEndStep +
+                ", statusStepId=" + statusStepId +
+                ", statusStepName='" + statusStepName + '\'' +
+                ", winNext=" + winNext +
+                ", loseNext=" + loseNext +
+                ", isSub=" + isSub +
+                ", reasonStep='" + reasonStep + '\'' +
+                ", actionStep='" + actionStep + '\'' +
+                '}';
+    }
+
     public Long getIdStep() {
         return idStep;
     }
@@ -120,6 +145,14 @@ private static final Logger logger = LoggerFactory.getLogger( RoadMap.class );
 
     public void setNameStep(String nameStep) {
         this.nameStep = nameStep;
+    }
+
+    public String getNumberStep() {
+        return numberStep;
+    }
+
+    public void setNumberStep(String numberStep) {
+        this.numberStep = numberStep;
     }
 
     public Date getDateBeginStep() {
