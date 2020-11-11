@@ -23,12 +23,16 @@ public class ProjectInfoResponse {
     //    @XmlSchemaType(name = "Projects", namespace = WSEndpoint.NAMESPACE_URI)
     private Project project;
 
+    @Deprecated
+    //пернесено в другой этап
     @XmlElement(name = "risks", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Risk> risks;
 
     @XmlElement(name = "indicators", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Indicator> indicators;
 
+    @Deprecated
+    //пернесено в другой этап
     @XmlElement(name = "roadMapList", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<RoadMap> roadMapList;
 

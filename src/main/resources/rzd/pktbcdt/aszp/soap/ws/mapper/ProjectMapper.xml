@@ -77,13 +77,17 @@
 
     <select id="getProjectSubprojects" resultMap="projectSubprojectsMap" parameterType="map" >
         WITH RECURSIVE r AS (
+        /*
         -- стартовая часть рекурсии (т.н. "anchor")
+        */
             SELECT parent_id, child_id, level
             FROM public.tbl_projects_subs TPS
-            WHERE parent_id = = #{idProject}
+            WHERE parent_id = #{idProject}
 
             UNION
-         -- рекурсивная часть 
+         /*
+         -- рекурсивная часть
+         */
             SELECT TPS.parent_id, TPS.child_id, TPS.level
             FROM public.tbl_projects_subs TPS
                      JOIN r
@@ -239,7 +243,7 @@
 
 
 
-    <resultMap id="projectSubprojectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectSubprojects">
+    <resultMap id="projectSubprojectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectTree">
         <result property="parentId" column="parent_id"/>
         <result property="childId" column="child_id"/>
         <result property="level" column="level"/>

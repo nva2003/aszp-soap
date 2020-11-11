@@ -9,10 +9,14 @@ import java.util.Map;
 @Mapper
 public interface ProjectMapper {
     List<Project> getProjects(Map map);
-    ProjectSubprojects getSubprojects(Map map);
-    ProjectSubprojects getProjectSubprojects(Map map);
+    List<ProjectTree> getSubprojects(Map map);
+    List<ProjectTree> getProjectSubprojects(Map map);
     Project getProjectsInfo(Map map);
+    @Deprecated
+    //пернесено в другой этап
     List<Risk> getProjectRisks(Map map);
     List<Indicator> getProjectIndicators(Map map);
+    @Deprecated
+    //пернесено в другой этап
     List<RoadMap> getProjectRoadMap(Map map);
 }

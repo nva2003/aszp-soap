@@ -7,10 +7,7 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
-import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsRequest;
-import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsResponse;
-import rzd.pktbcdt.aszp.soap.ws.model.ProjectInfoResponse;
-import rzd.pktbcdt.aszp.soap.ws.model.ProjectsInfoRequest;
+import rzd.pktbcdt.aszp.soap.ws.model.*;
 
 @Endpoint
 public class ProjectsServiceEndpoint implements WSEndpoint{
@@ -39,6 +36,16 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
         logger.debug("request = " + request.toString());
 
         return projectsService.getProjectsInfo(request);
+
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_TREE_REQUEST_LOCAL_PART)
+    @ResponsePayload
+    public ProjectTreeResponse getProjectTree(@RequestPayload ProjectTreeRequest request) {
+
+        logger.debug("request = " + request.toString());
+
+        return projectsService.getProjectTree(request);
 
     }
 }

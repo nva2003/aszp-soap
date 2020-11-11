@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -108,8 +108,8 @@
 					<sources>
 						<source>src/main/java/rzd/pktbcdt/aszp/soap/ws/model</source>
 					</sources>
-<!--					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>-->
-<!--					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
+					<!--					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>-->
+					<!--					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
 					<outputDirectory>${project.build.directory}/classes</outputDirectory>
 					<clearOutputDir>false</clearOutputDir>
 					<transformSchemas>
@@ -131,8 +131,107 @@
 					<executable>true</executable>
 				</configuration>
 			</plugin>
+
+<!--			<plugin>
+				<groupId>com.coderplus.maven.plugins</groupId>
+				<artifactId>copy-rename-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>copy-and-rename-file</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>rename</goal>
+						</goals>
+						<configuration>
+							<sourceFile>${project.build.directory}/application-${build.profile.id}.properties</sourceFile>
+							<destinationFile>${project.build.directory}/application.properties</destinationFile>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+
 		</plugins>
+
+		<resources>
+			<resource>
+				<!--
+              Placeholders that are found from the files located in the configured resource
+              directories are replaced with the property values found from the profile
+              specific configuration file.
+          		-->
+<!--				<filtering>true</filtering>-->
+				<directory>src/main/resources</directory>
+				<excludes>
+					 <exclude>*-*.*</exclude>
+				</excludes>
+				<!--          <directory>src/main/resources/${resources.dir}</directory>-->
+				<!--				<includes>
+                                    <include>*.properties</include>
+                                </includes>-->
+			</resource>
+		</resources>
+
+
 	</build>
 
+	<!-- Profile configuration -->
+	<profiles>
+		<!-- The configuration of the development profile -->
+		<profile>
+			<id>dev</id>
+			<!-- The development profile is active by default -->
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!--
+                    Specifies the build.profile.id property that must be equal than the name of
+                    the directory that contains the profile specific configuration file.
+                    Because the name of the directory that contains the configuration file of the
+                    development profile is dev, we must set the value of the build.profile.id
+                    property to dev.
+                -->
+				<build.profile.id>dev</build.profile.id>
+<!--				<resources.dir>dev</resources.dir>-->
+				<!--				<datasource.url>jdbc:postgresql://10.240.2.8:5432/devdb</datasource.url>-->
+				<!--				<datasource.username>dbuser</datasource.username>-->
+				<!--				<datasource.password>password12345</datasource.password>-->
+			</properties>
+
+		</profile>
+		<!-- The configuration of the production profile -->
+		<profile>
+			<id>prod</id>
+			<properties>
+				<!--
+                    Specifies the build.profile.id property that must be equal than the name of
+                    the directory that contains the profile specific configuration file.
+                    Because the name of the directory that contains the configuration file of the
+                    production profile is prod, we must set the value of the build.profile.id
+                    property to prod.
+                -->
+				<build.profile.id>prod</build.profile.id>
+			</properties>
+
+		</profile>
+		<!-- The configuration of the testing profile -->
+		<profile>
+			<id>qa</id>
+			<properties>
+				<!--
+                    Specifies the build.profile.id property that must be equal than the name of
+                    the directory that contains the profile specific configuration file.
+                    Because the name of the directory that contains the configuration file of the
+                    testing profile is test, we must set the value of the build.profile.id
+                    property to test.
+                -->
+				<build.profile.id>qa</build.profile.id>
+			</properties>
+		</profile>
+
+
+
+	</profiles>
 
 </project>

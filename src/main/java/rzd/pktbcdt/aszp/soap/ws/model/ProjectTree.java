@@ -1,5 +1,11 @@
 package rzd.pktbcdt.aszp.soap.ws.model;
 
+import rzd.pktbcdt.aszp.soap.ws.WSEndpoint;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
 
 /**
@@ -7,7 +13,19 @@ import java.io.Serializable;
  * Date: 28.10.2020
  * Time: 11:45
  */
-public class ProjectSubprojects implements Serializable {
+
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "ProjectTree",
+        propOrder = {
+        "parentId",
+        "childId",
+        "level",
+
+        } ,
+        namespace = WSEndpoint.NAMESPACE_URI
+)
+public class ProjectTree implements Serializable {
 
 
     /*--------------------------------------------
@@ -36,10 +54,13 @@ private static final Logger logger = LoggerFactory.getLogger( ProjectSubprojects
     ============================================*/
     
     //    идентификатор проекта (родителя)
+    @XmlElement(name = "parentId", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int parentId;
     //    идентификатор проекта (наследник)
+    @XmlElement(name = "childId", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int childId;
     //    уровень вложенности узла дерева
+    @XmlElement(name = "level", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int level;
     /*--------------------------------------------
     |               M E T H O D S               |

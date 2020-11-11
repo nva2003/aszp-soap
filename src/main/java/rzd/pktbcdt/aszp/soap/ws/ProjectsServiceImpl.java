@@ -24,15 +24,11 @@ public class ProjectsServiceImpl implements ProjectsService {
         paramMap.put("year", request.getYear());
 
         Project projectsInfo = projectMapper.getProjectsInfo(paramMap);
-        List<Risk> projectRisks = projectMapper.getProjectRisks(paramMap);
         List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
-        List<RoadMap> projectRoadMap = projectMapper.getProjectRoadMap(paramMap);
 
         if ( projectsInfo != null){
             projectInfo.setProject(projectsInfo);
-            projectInfo.setRisks(projectRisks);
             projectInfo.setIndicators(projectIndicators);
-            projectInfo.setRoadMapList(projectRoadMap);
         }
 
 
@@ -50,5 +46,14 @@ public class ProjectsServiceImpl implements ProjectsService {
         }
          List<Project> projects = projectMapper.getProjects(paramMap);
          return projects;
+    }
+
+    @Override
+    public ProjectTreeResponse getProjectTree(ProjectTreeRequest request) {
+        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
+        paramMap.put("idProject", request.getIdProject());
+        ProjectTreeResponse projectTree = new ProjectTreeResponse();
+             projectTree.setProjectTree(projectMapper.getProjectSubprojects(paramMap));
+         return projectTree;
     }
 }
