@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.*;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = WSEndpoint.GET_PROJECT_TREE_REQUEST_LOCAL_PART, propOrder = {
-//@XmlType(name = "ProjectsInfoRequest", propOrder = {
     "idProject"
     },
         namespace = WSEndpoint.NAMESPACE_URI

@@ -21,7 +21,6 @@ import java.util.Date;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, propOrder = {
-//@XmlType(name = "ProjectsInfoRequest", propOrder = {
     "idProject"
     ,"year"
     },
