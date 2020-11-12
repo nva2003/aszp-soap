@@ -11,7 +11,7 @@ public interface ProjectMapper {
     List<Project> getProjects(Map map);
     List<ProjectTree> getSubprojects(Map map);
     List<ProjectTree> getProjectSubprojects(Map map);
-    Project getProjectsInfo(Map map);
+    Project getProjectInfo(Map map);
     @Deprecated
     //пернесено в другой этап
     List<Risk> getProjectRisks(Map map);

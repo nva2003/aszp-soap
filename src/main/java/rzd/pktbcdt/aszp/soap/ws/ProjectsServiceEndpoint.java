@@ -31,11 +31,11 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_INFO_REQUEST_LOCAL_PART)
     @ResponsePayload
-    public ProjectInfoResponse getProjectsInfo(@RequestPayload ProjectsInfoRequest request) {
+    public ProjectInfoResponse getProjectInfo(@RequestPayload ProjectInfoRequest request) {
 
         logger.debug("request = " + request.toString());
 
-        return projectsService.getProjectsInfo(request);
+        return projectsService.getProjectInfo(request);
 
     }
 

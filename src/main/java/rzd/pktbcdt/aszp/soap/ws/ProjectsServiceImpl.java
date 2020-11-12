@@ -17,13 +17,13 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
     @Override
-    public ProjectInfoResponse getProjectsInfo(ProjectsInfoRequest request) {
+    public ProjectInfoResponse getProjectInfo(ProjectInfoRequest request) {
         ProjectInfoResponse projectInfo = new ProjectInfoResponse();
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
         paramMap.put("year", request.getYear());
 
-        Project projectsInfo = projectMapper.getProjectsInfo(paramMap);
+        Project projectsInfo = projectMapper.getProjectInfo(paramMap);
         List<Indicator> projectIndicators = projectMapper.getProjectIndicators(paramMap);
 
         if ( projectsInfo != null){

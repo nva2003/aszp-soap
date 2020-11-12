@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ProjectsService {
     public List<Project> getProjects(GetProjectsRequest request);
-    public ProjectInfoResponse getProjectsInfo(ProjectsInfoRequest request);
+    public ProjectInfoResponse getProjectInfo(ProjectInfoRequest request);
     public ProjectTreeResponse getProjectTree(ProjectTreeRequest request);
 }

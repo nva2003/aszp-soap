@@ -95,7 +95,7 @@
 
     </select>
 
-    <select id="getProjectsInfo" resultMap="projectsMap" parameterType="map" >
+    <select id="getProjectInfo" resultMap="projectsMap" parameterType="map" >
         SELECT
             PR."idProject"
              ,PR."nameProject"

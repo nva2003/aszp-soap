@@ -27,7 +27,7 @@ import java.util.Date;
         namespace = WSEndpoint.NAMESPACE_URI
 )
 @XmlRootElement(name = WSEndpoint.GET_PROJECT_INFO_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
-public class ProjectsInfoRequest {
+public class ProjectInfoRequest {
 
 
 
