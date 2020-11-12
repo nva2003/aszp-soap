@@ -24,8 +24,6 @@
              ,U3."full_name" as worker
              ,TP."nameAgreement" as typeProjectName
              ,COUNTRIES."nameCountry"
-            ,TPS."parent_id"
-            ,TPS."child_id"
 
         FROM
             public.tbl_projects PR
@@ -44,9 +42,7 @@
                 left outer join
             public.tbl_countries COUNTRIES
                 on PR."idCountry"=COUNTRIES."idCountry"
-                left outer join
-            public.tbl_projects_subs TPS
-                on TPS."child_id" = PR."idProject"
+
 
         where
             PR."idType" != 3
@@ -55,9 +51,10 @@
                 and PR."dateEndProject" >= #{date}
                 ]]>
             </if>
-        and exists(
-              select true FROM public.tbl_projects_subs TPS where TPS."parent_id" = PR."idProject" and TPS."level" = 1
-                      )
+            <if test="idProject != null">
+                and PR."idProject" = #{idProject}
+            </if>
+
 
 
     </select>
