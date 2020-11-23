@@ -24,7 +24,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/home").permitAll()
+                .antMatchers("/", "/home", "/aszp-soap", "/aszp-soap/").permitAll()
+                .and()
+                .authorizeRequests()
+//                .antMatchers("/aszp-soap/ws")
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
