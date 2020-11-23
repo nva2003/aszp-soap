@@ -159,28 +159,31 @@
 
 
     <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
-    SELECT
-        KI."id" as idIndicator
-        ,KI."type" as typeIndicator
-        ,KI."name" as nameIndicator
-        ,IV."id" as idIndicatorValue
-        ,IV."year"
-        ,IV."type" as periodType
-        ,IV."type_value" as periodValue
-        ,IV."plan" as planValue
-        ,IV."real" as realValue
-        ,IV."prognosis"
-     FROM
-         public.tbl_key_indicators KI
-             left outer join
-         public.tbl_key_indicators_values IV
-                on IV."indicator_id" = KI."id"
-        where project_id= #{idProject}
---         and KI."type"=0
-          and
-            exists(
-                    select confirmed FROM public.tbl_key_indicators_projects where project_id = #{idProject}
-                )
+        SELECT
+            KIP.confirmed
+            ,KIP.project_id
+            ,KI."id" as idIndicator
+            ,KI."type" as typeIndicator
+            ,KI."name" as nameIndicator
+            ,IV."id" as idIndicatorValue
+            ,IV."year"
+            ,IV."type" as periodType
+            ,IV."type_value" as periodValue
+            ,IV."plan" as planValue
+            ,IV."real" as realValue
+            ,IV."prognosis"
+        FROM
+            public.tbl_key_indicators_projects KIP
+                left outer join
+            public.tbl_key_indicators KI
+            on KIP."indicator_id" = KI."id"
+            and KIP.confirmed = true
+            and KIP.project_id= #{idProject}
+                left outer join
+            public.tbl_key_indicators_values IV
+            on IV."indicator_id" = KI."id"
+        where
+               IV."project_id" = #{idProject}
                 <choose>
                     <when test="year != null">
                         and IV."year" = #{year}
