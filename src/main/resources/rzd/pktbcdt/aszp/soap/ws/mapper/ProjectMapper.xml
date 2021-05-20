@@ -88,7 +88,7 @@
             SELECT TPS.parent_id, TPS.child_id, TPS.level
             FROM public.tbl_projects_subs TPS
                      JOIN r
-                          ON TPS.child_id = r.parent_id
+                          ON TPS.parent_id = r.child_id
         )
 
         SELECT parent_id, child_id, level FROM r;
