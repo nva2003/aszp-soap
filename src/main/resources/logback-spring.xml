@@ -2,13 +2,15 @@
 <configuration debug="false">
 	<timestamp key="bySecond" datePattern="HH.mm.ss" />
     <property resource="application.properties" />
+<!--    <property name="pathToHomeLog" value="/var/log/aszp-soap"/>-->
+<!--	<property name="rollingSize" value="50MB" />-->
+<!--	<property name="serverName" value="server_name" />-->
     <property name="pathToHomeLog" value="${pathToHomeLog}"/>
     <property name="rollingSize" value="${rollingSize}" />
     <property name="serverName" value="${app.server.name}" />
 
     <appender name="debugFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${pathToHomeLog}/DEBUG/${serverName}-aszp-soap-DEBUG.log</File>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 <!--			<charset>IBM1025</charset>-->
@@ -33,7 +35,6 @@
 
 	</appender><appender name="infoFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${pathToHomeLog}/INFO/${serverName}-aszp-soap-INFO.log</File>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 <!--			<charset>IBM1025</charset>-->
@@ -59,7 +60,6 @@
 
 	<appender name="warnFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${pathToHomeLog}/WARN/${serverName}-aszp-soap-WARN.log</File>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 <!--			<charset>IBM1025</charset>-->
@@ -84,7 +84,6 @@
 
 	<appender name="errorFile"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>${pathToHomeLog}/ERROR/${serverName}-aszp-soap-ERROR.log</File>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 <!--			<charset>IBM1025</charset>-->
@@ -176,5 +175,14 @@
 		<appender-ref ref="errorFile" />
 		<appender-ref ref="infoFile"/>
 	</logger>
+
+<!--
+	<logger name="org.mybatis" level="DEBUG" >
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="debugFile" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="infoFile"/>
+	</logger>
+-->
 
 </configuration>

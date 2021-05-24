@@ -6,6 +6,7 @@ import rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper;
 import rzd.pktbcdt.aszp.soap.ws.model.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,5 +56,42 @@ public class ProjectsServiceImpl implements ProjectsService {
         ProjectTreeResponse projectTree = new ProjectTreeResponse();
              projectTree.setProjectTree(projectMapper.getProjectSubprojects(paramMap));
          return projectTree;
+    }
+
+    @Override
+    public ProjectsResponse getASZPProjects(ProjectsRequest request) {
+        ProjectsResponse response = new ProjectsResponse();
+
+        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
+        //todo: add year or date paramMap.put("year", request.getYear());
+
+        if (request.getIdProjectList() == null || request.getIdProjectList().isEmpty()){
+
+            response.setProjects(projectMapper.getProjects(paramMap));
+            List<Indicator> projectIndicators = projectMapper.getIndicators(paramMap);
+            response.setIndicators(projectIndicators);
+            response.setProjectTree(projectMapper.getProjectSub(paramMap));
+
+        } else {
+            List<Project> projects = new ArrayList<>();
+            List<Indicator> projectIndicators = new ArrayList<>();
+            List<ProjectTree> projectSubprojects = new ArrayList<>();
+
+            for (Long idProject : request.getIdProjectList()) {
+
+                paramMap.put("idProject", idProject);
+
+                projects.add(projectMapper.getProjectInfo(paramMap));
+                projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
+                projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
+            }
+
+            response.setProjects(projects);
+            response.setIndicators(projectIndicators);
+            response.setProjectTree(projectSubprojects);
+
+        }
+
+        return response;
     }
 }

@@ -44,33 +44,22 @@
                 on PR."idCountry"=COUNTRIES."idCountry"
 
 
-        where
-            PR."idType" != 3
+        <where>
+            <if test="idProject != null">
+                and PR."idProject" = #{idProject}
+            </if>
+
             <if test="date != null">
                 <![CDATA[
                 and PR."dateEndProject" >= #{date}
                 ]]>
             </if>
-            <if test="idProject != null">
-                and PR."idProject" = #{idProject}
-            </if>
-
+        </where>
+--             PR."idType" != 3
 
 
     </select>
 
-    <select id="getSubprojects" resultMap="projectSubprojectsMap" parameterType="map" >
-        SELECT
-            TPS."parent_id"
-            TPS."child_id"
-            TPS."level"
-        FROM
-            public.tbl_projects_subs TPS
-        where
-                TPS."parent_id" = #{idProject}
-            and TPS.child_id != parent_id
-
-    </select>
 
     <select id="getProjectSubprojects" resultMap="projectSubprojectsMap" parameterType="map" >
         WITH RECURSIVE r AS (
@@ -94,6 +83,12 @@
         SELECT parent_id, child_id, level FROM r;
 
     </select>
+
+    <select id="getProjectSub" resultMap="projectSubMap" parameterType="map" >
+        SELECT id,parent_id, child_id, level FROM tbl_projects_subs;
+
+    </select>
+
 
     <select id="getProjectInfo" resultMap="projectsMap" parameterType="map" >
         SELECT
@@ -137,9 +132,7 @@
                 on PR."idCountry"=COUNTRIES."idCountry"
 
         where
-            PR."idType" != 3
             and PR."idProject" = #{idProject}
-
 
     </select>
 
@@ -194,6 +187,39 @@
                 </choose>
     </select>
 
+    <select id="getIndicators" resultMap="indicatorMap" parameterType="map" >
+        SELECT
+            KIP.confirmed
+            ,KIP.project_id
+            ,KI."id" as idIndicator
+            ,KI."type" as typeIndicator
+            ,KI."name" as nameIndicator
+            ,IV."id" as idIndicatorValue
+            ,IV."year"
+            ,IV."type" as periodType
+            ,IV."type_value" as periodValue
+            ,IV."plan" as planValue
+            ,IV."real" as realValue
+            ,IV."prognosis"
+        FROM
+            public.tbl_key_indicators_projects KIP
+                left outer join
+            public.tbl_key_indicators KI
+            on KIP."indicator_id" = KI."id"
+--            todo and KIP.confirmed = true
+                left outer join
+            public.tbl_key_indicators_values IV
+            on IV."indicator_id" = KI."id"
+        <where>
+          <if test="idProject != null">
+              IV."project_id" = #{idProject}
+          </if>
+          <if test="year != null">
+              and IV."year" = #{year}
+          </if>
+        </where>
+    </select>
+
 
     <select id="getProjectRoadMap" resultMap="roadMap" parameterType="map" >
         SELECT
@@ -244,6 +270,13 @@
 
 
     <resultMap id="projectSubprojectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectTree">
+        <result property="parentId" column="parent_id"/>
+        <result property="childId" column="child_id"/>
+        <result property="level" column="level"/>
+    </resultMap>
+
+    <resultMap id="projectSubMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectTree">
+        <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="childId" column="child_id"/>
         <result property="level" column="level"/>

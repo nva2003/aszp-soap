@@ -8,4 +8,5 @@ public interface ProjectsService {
     public List<Project> getProjects(GetProjectsRequest request);
     public ProjectInfoResponse getProjectInfo(ProjectInfoRequest request);
     public ProjectTreeResponse getProjectTree(ProjectTreeRequest request);
+    public ProjectsResponse getASZPProjects(ProjectsRequest request);
 }

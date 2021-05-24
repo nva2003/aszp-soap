@@ -17,6 +17,16 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_ASZP_PROJECT_REQUEST_LOCAL_PART)
+    @ResponsePayload
+    public ProjectsResponse getASZPProjects(@RequestPayload ProjectsRequest request) {
+
+        logger.debug("request = " + request.toString());
+
+        return projectsService.getASZPProjects(request);
+
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_REQUEST_LOCAL_PART)
     @ResponsePayload
     public GetProjectsResponse getProjects(@RequestPayload GetProjectsRequest request) {

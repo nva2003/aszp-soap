@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.util.Properties;
+import java.util.jar.Attributes;
+import java.util.jar.Manifest;
 
 /**
  * User: vnikishin
@@ -60,12 +62,23 @@ private static final Logger logger = LoggerFactory.getLogger( SimpleController.c
         InputStream is = this.getClass().getClassLoader().getResourceAsStream("META-INF/MANIFEST.MF");
 //        prop.load(getServletContext().getResourceAsStream("/META-INF/MANIFEST.MF"));
         Properties prop = new Properties();
+        Manifest manifest = new Manifest();
         try {
             prop.load( is );
+            manifest.read( is );
             version = prop.getProperty("Implementation-Build");
+
+
             if (version ==null) {
                 version = this.getClass().getPackage().getImplementationVersion();
             }
+
+            Attributes attributes = manifest.getMainAttributes();
+            attributes.forEach((key, value) -> {
+                logger.debug(key + ": " + value);
+            } );
+
+
         } catch (IOException ex) {
             version = this.getClass().getPackage().getImplementationVersion();
             logger.error(ex.getLocalizedMessage());

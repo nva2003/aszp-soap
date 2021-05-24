@@ -18,6 +18,7 @@ import java.io.Serializable;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ProjectTree",
         propOrder = {
+        "id",
         "parentId",
         "childId",
         "level",
@@ -53,6 +54,9 @@ private static final Logger logger = LoggerFactory.getLogger( ProjectSubprojects
     |         C O N S T R U C T O R S           |
     ============================================*/
     
+    //    идентификатор проекта (записи в таблицу)
+    @XmlElement(name = "id", required = false, namespace = WSEndpoint.NAMESPACE_URI)
+    private int id;
     //    идентификатор проекта (родителя)
     @XmlElement(name = "parentId", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int parentId;
@@ -65,6 +69,14 @@ private static final Logger logger = LoggerFactory.getLogger( ProjectSubprojects
     /*--------------------------------------------
     |               M E T H O D S               |
     ============================================*/
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getParentId() {
         return parentId;
@@ -92,8 +104,9 @@ private static final Logger logger = LoggerFactory.getLogger( ProjectSubprojects
 
     @Override
     public String toString() {
-        return "ProjectSubprojects{" +
-                "parentId=" + parentId +
+        return "ProjectTree{" +
+                "id=" + id +
+                ", parentId=" + parentId +
                 ", childId=" + childId +
                 ", level=" + level +
                 '}';
