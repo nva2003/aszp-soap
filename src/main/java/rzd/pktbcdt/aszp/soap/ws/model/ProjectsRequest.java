@@ -30,6 +30,7 @@ import java.util.List;
 @XmlRootElement(name = WSEndpoint.GET_ASZP_PROJECT_REQUEST_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class ProjectsRequest {
 
+    @XmlElementWrapper(name = "idProjectList", nillable = true)
     @XmlElement(
             required = false, nillable = true
             , namespace = WSEndpoint.NAMESPACE_URI

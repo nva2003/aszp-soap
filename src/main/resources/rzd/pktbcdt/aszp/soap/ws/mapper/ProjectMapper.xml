@@ -132,7 +132,7 @@
                 on PR."idCountry"=COUNTRIES."idCountry"
 
         where
-            and PR."idProject" = #{idProject}
+            PR."idProject" = #{idProject}
 
     </select>
 

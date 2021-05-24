@@ -19,22 +19,27 @@ import java.util.List;
 @XmlRootElement(name = WSEndpoint.GET_ASZP_PROJECT_RESPONSE_LOCAL_PART, namespace = WSEndpoint.NAMESPACE_URI)
 public class ProjectsResponse {
 
-    @XmlElement(name = "projects", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    @XmlElementWrapper(name = "projects", nillable = true)
+    @XmlElement(name = "project", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Project> projects;
 
-    @XmlElement(name = "indicators", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    @XmlElementWrapper(name = "indicators", nillable = true)
+    @XmlElement(name = "indicator", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Indicator> indicators;
 
-    @XmlElement(name = "projectTree", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    @XmlElementWrapper(name = "projectTree", nillable = true)
+    @XmlElement(name = "project", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<ProjectTree> projectTree;
 
     @Deprecated
     //пернесено в другой этап
+    @XmlElementWrapper(name = "risks", nillable = true)
     @XmlElement(name = "risks", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Risk> risks;
 
     @Deprecated
     //пернесено в другой этап
+    @XmlElementWrapper(name = "roadMapList", nillable = true)
     @XmlElement(name = "roadMapList", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<RoadMap> roadMapList;
 

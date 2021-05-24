@@ -6,10 +6,7 @@ import rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper;
 import rzd.pktbcdt.aszp.soap.ws.model.*;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class ProjectsServiceImpl implements ProjectsService {
@@ -65,7 +62,9 @@ public class ProjectsServiceImpl implements ProjectsService {
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         //todo: add year or date paramMap.put("year", request.getYear());
 
-        if (request.getIdProjectList() == null || request.getIdProjectList().isEmpty()){
+        boolean nullsOnly = request.getIdProjectList().stream().allMatch(Objects::isNull);
+
+        if (request.getIdProjectList() == null || request.getIdProjectList().isEmpty() || nullsOnly){
 
             response.setProjects(projectMapper.getProjects(paramMap));
             List<Indicator> projectIndicators = projectMapper.getIndicators(paramMap);
