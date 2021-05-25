@@ -115,6 +115,41 @@
         </layout>
     </appender>
 
+	<appender name="REQUEST" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${pathToHomeLog}/TRACE/${serverName}-aszp-soap-REQUEST-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 30 days worth of history, but at most 10GB -->
+			<maxFileSize>${rollingSize}</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>10GB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+	<appender name="RESPONSE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d - %msg%n</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- rollover daily -->
+			<fileNamePattern>${pathToHomeLog}/TRACE/${serverName}-aszp-soap-RESPONSE-%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+			<!-- each file should be at most 100MB, keep 30 days worth of history, but at most 10GB -->
+			<maxFileSize>${rollingSize}</maxFileSize>
+			<maxHistory>30</maxHistory>
+			<totalSizeCap>10GB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+
+<!--	<logger name="REQUEST">
+		<appender-ref ref="REQUEST" />
+	</logger>
+
+	<logger name="RESPONSE">
+		<appender-ref ref="RESPONSE" />
+	</logger>-->
 
 <!--
     <logger name="org.springframework.core">
@@ -148,6 +183,16 @@
 		<appender-ref ref="debugFile" />
 		<appender-ref ref="errorFile" />
 		<appender-ref ref="infoFile"/>
+	</logger>
+
+	<logger name="org.springframework.ws.server.MessageTracing.sent">
+		<level value="TRACE"/>
+		<appender-ref ref="RESPONSE"/>
+	</logger>
+
+	<logger name="org.springframework.ws.server.MessageTracing.received">
+		<level value="TRACE"/>
+		<appender-ref ref="REQUEST"/>
 	</logger>
 
 	<logger name="rzd.pktbcdt.aszp.soap">
@@ -184,5 +229,6 @@
 		<appender-ref ref="infoFile"/>
 	</logger>
 -->
+
 
 </configuration>
