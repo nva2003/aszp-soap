@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>rzd.pktbcdt</groupId>
 	<artifactId>aszp-soap</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 <!--	<version>0.0.1-SNAPSHOT</version>-->
 	<name>aszp-soap</name>
 	<description>Demo project for Spring Boot</description>
@@ -154,79 +154,82 @@
 
 		</plugins>
 
+<!--
 		<resources>
 			<resource>
-				<!--
+				&lt;!&ndash;
               Placeholders that are found from the files located in the configured resource
               directories are replaced with the property values found from the profile
               specific configuration file.
-          		-->
-<!--				<filtering>true</filtering>-->
+          		&ndash;&gt;
+&lt;!&ndash;				<filtering>true</filtering>&ndash;&gt;
 				<directory>src/main/resources</directory>
 				<excludes>
 					 <exclude>*-*.*</exclude>
 				</excludes>
-				<!--          <directory>src/main/resources/${resources.dir}</directory>-->
-				<!--				<includes>
+				&lt;!&ndash;          <directory>src/main/resources/${resources.dir}</directory>&ndash;&gt;
+				&lt;!&ndash;				<includes>
                                     <include>*.properties</include>
-                                </includes>-->
+                                </includes>&ndash;&gt;
 			</resource>
 		</resources>
+-->
 
 
 	</build>
 
 	<!-- Profile configuration -->
+<!--
 	<profiles>
-		<!-- The configuration of the development profile -->
+		&lt;!&ndash; The configuration of the development profile &ndash;&gt;
 		<profile>
 			<id>dev</id>
-			<!-- The development profile is active by default -->
+			&lt;!&ndash; The development profile is active by default &ndash;&gt;
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
-				<!--
+				&lt;!&ndash;
                     Specifies the build.profile.id property that must be equal than the name of
                     the directory that contains the profile specific configuration file.
                     Because the name of the directory that contains the configuration file of the
                     development profile is dev, we must set the value of the build.profile.id
                     property to dev.
-                -->
+                &ndash;&gt;
 				<build.profile.id>dev</build.profile.id>
-<!--				<resources.dir>dev</resources.dir>-->
-				<!--				<datasource.url>jdbc:postgresql://10.240.2.8:5432/devdb</datasource.url>-->
-				<!--				<datasource.username>dbuser</datasource.username>-->
-				<!--				<datasource.password>password12345</datasource.password>-->
+&lt;!&ndash;				<resources.dir>dev</resources.dir>&ndash;&gt;
+				&lt;!&ndash;				<datasource.url>jdbc:postgresql://10.240.2.8:5432/devdb</datasource.url>&ndash;&gt;
+				&lt;!&ndash;				<datasource.username>dbuser</datasource.username>&ndash;&gt;
+				&lt;!&ndash;				<datasource.password>password12345</datasource.password>&ndash;&gt;
 			</properties>
 
 		</profile>
-		<!-- The configuration of the production profile -->
+		&lt;!&ndash; The configuration of the production profile &ndash;&gt;
 		<profile>
 			<id>prod</id>
 			<properties>
-				<!--
+				&lt;!&ndash;
                     Specifies the build.profile.id property that must be equal than the name of
                     the directory that contains the profile specific configuration file.
                     Because the name of the directory that contains the configuration file of the
                     production profile is prod, we must set the value of the build.profile.id
                     property to prod.
-                -->
+                &ndash;&gt;
 				<build.profile.id>prod</build.profile.id>
 			</properties>
 
 		</profile>
-		<!-- The configuration of the testing profile -->
+		&lt;!&ndash; The configuration of the testing profile &ndash;&gt;
 		<profile>
 			<id>qa</id>
 			<properties>
-				<!--
+				&lt;!&ndash;
                     Specifies the build.profile.id property that must be equal than the name of
                     the directory that contains the profile specific configuration file.
                     Because the name of the directory that contains the configuration file of the
                     testing profile is test, we must set the value of the build.profile.id
                     property to test.
-                -->
+                &ndash;&gt;
 				<build.profile.id>qa</build.profile.id>
 			</properties>
 		</profile>
@@ -234,5 +237,6 @@
 
 
 	</profiles>
+-->
 
 </project>
