@@ -13,6 +13,7 @@ import java.util.List;
         "idIndicator",
         "typeIndicator",
         "nameIndicator",
+        "idProject",
         "indicatorValues",
         },
         namespace = WSEndpoint.NAMESPACE_URI
@@ -26,6 +27,8 @@ public class Indicator {
     private int typeIndicator;
     @XmlElement(name = "nameIndicator", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private String nameIndicator;
+    @XmlElement(name = "idProject", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private int idProject;
 
     @XmlElement(name = "indicatorValues", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List <IndicatorValue> indicatorValues;
@@ -52,6 +55,14 @@ public class Indicator {
 
     public void setNameIndicator(String nameIndicator) {
         this.nameIndicator = nameIndicator;
+    }
+
+    public int getIdProject() {
+        return idProject;
+    }
+
+    public void setIdProject(int idProject) {
+        this.idProject = idProject;
     }
 
     public List<IndicatorValue> getIndicatorValues() {

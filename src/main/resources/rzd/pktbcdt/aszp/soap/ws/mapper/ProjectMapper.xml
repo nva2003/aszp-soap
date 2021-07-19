@@ -45,6 +45,9 @@
 
 
         <where>
+            <if test="skim">
+                PR."skim" = true
+            </if>
             <if test="idProject != null">
                 and PR."idProject" = #{idProject}
             </if>
@@ -66,7 +69,7 @@
         /*
         -- стартовая часть рекурсии (т.н. "anchor")
         */
-            SELECT parent_id, child_id, level
+            SELECT id,parent_id, child_id, level
             FROM public.tbl_projects_subs TPS
             WHERE parent_id = #{idProject}
 
@@ -74,17 +77,17 @@
          /*
          -- рекурсивная часть
          */
-            SELECT TPS.parent_id, TPS.child_id, TPS.level
+            SELECT TPS.id,TPS.parent_id, TPS.child_id, TPS.level
             FROM public.tbl_projects_subs TPS
                      JOIN r
                           ON TPS.parent_id = r.child_id
         )
 
-        SELECT parent_id, child_id, level FROM r;
+        SELECT id,parent_id, child_id, level FROM r;
 
     </select>
 
-    <select id="getProjectSub" resultMap="projectSubMap" parameterType="map" >
+    <select id="getProjectSub" resultMap="projectSubMap">
         SELECT id,parent_id, child_id, level FROM tbl_projects_subs;
 
     </select>
@@ -133,6 +136,9 @@
 
         where
             PR."idProject" = #{idProject}
+            <if test="skim">
+            and PR."skim" = true
+            </if>
 
     </select>
 
@@ -154,7 +160,7 @@
     <select id="getProjectIndicators" resultMap="indicatorMap" parameterType="map" >
         SELECT
             KIP.confirmed
-            ,KIP.project_id
+            ,KIP.project_id as idProject
             ,KI."id" as idIndicator
             ,KI."type" as typeIndicator
             ,KI."name" as nameIndicator
@@ -178,6 +184,8 @@
         where
                IV."project_id" = #{idProject}
                 <choose>
+                    <when test="skim">
+                    </when>
                     <when test="year != null">
                         and IV."year" = #{year}
                     </when>
@@ -187,6 +195,7 @@
                 </choose>
     </select>
 
+    <!--not used-->
     <select id="getIndicators" resultMap="indicatorMap" parameterType="map" >
         SELECT
             KIP.confirmed
@@ -206,7 +215,7 @@
                 left outer join
             public.tbl_key_indicators KI
             on KIP."indicator_id" = KI."id"
---            todo and KIP.confirmed = true
+            and KIP.confirmed = true
                 left outer join
             public.tbl_key_indicators_values IV
             on IV."indicator_id" = KI."id"
@@ -270,6 +279,7 @@
 
 
     <resultMap id="projectSubprojectsMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectTree">
+        <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
         <result property="childId" column="child_id"/>
         <result property="level" column="level"/>
@@ -293,6 +303,7 @@
     <resultMap id="indicatorMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Indicator">
         <id  property="idIndicator" column="idIndicator"/>
         <result property="typeIndicator" column="typeIndicator"/>
+        <result property="idProject" column="idProject"/>
         <result property="nameIndicator" column="nameIndicator"/>
             <collection property="indicatorValues" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorValue">
                 <result property="idIndicatorValue" column="idIndicatorValue"/>

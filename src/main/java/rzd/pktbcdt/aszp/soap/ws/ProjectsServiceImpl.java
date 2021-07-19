@@ -14,6 +14,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     @Autowired
     private ProjectMapper projectMapper;
 
+    @Deprecated
     @Override
     public ProjectInfoResponse getProjectInfo(ProjectInfoRequest request) {
         ProjectInfoResponse projectInfo = new ProjectInfoResponse();
@@ -34,7 +35,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     }
 
 
-
+    @Deprecated
     @Override
     public List<Project> getProjects(GetProjectsRequest request) {
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
@@ -46,13 +47,18 @@ public class ProjectsServiceImpl implements ProjectsService {
          return projects;
     }
 
+    @Deprecated
     @Override
     public ProjectTreeResponse getProjectTree(ProjectTreeRequest request) {
         Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
         paramMap.put("idProject", request.getIdProject());
         ProjectTreeResponse projectTree = new ProjectTreeResponse();
-             projectTree.setProjectTree(projectMapper.getProjectSubprojects(paramMap));
-         return projectTree;
+        if ( request.getIdProject() == null ) {
+            projectTree.setProjectTree(projectMapper.getProjectSub());
+        } else {
+            projectTree.setProjectTree(projectMapper.getProjectSubprojects(paramMap));
+        }
+        return projectTree;
     }
 
     @Override
@@ -64,17 +70,24 @@ public class ProjectsServiceImpl implements ProjectsService {
 
         boolean nullsOnly = request.getIdProjectList().stream().allMatch(Objects::isNull);
 
+        List<Project> projects = new ArrayList<>();
+        List<Indicator> projectIndicators = new ArrayList<>();
+        List<ProjectTree> projectSubprojects = new ArrayList<>();
+        paramMap.put("skim", true);
+
         if (request.getIdProjectList() == null || request.getIdProjectList().isEmpty() || nullsOnly){
 
-            response.setProjects(projectMapper.getProjects(paramMap));
-            List<Indicator> projectIndicators = projectMapper.getIndicators(paramMap);
-            response.setIndicators(projectIndicators);
-            response.setProjectTree(projectMapper.getProjectSub(paramMap));
+
+            projects.addAll(projectMapper.getProjects(paramMap));
+
+            for (Project project : projects) {
+
+                paramMap.put("idProject", project.getIdProject());
+                projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
+                projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
+            }
 
         } else {
-            List<Project> projects = new ArrayList<>();
-            List<Indicator> projectIndicators = new ArrayList<>();
-            List<ProjectTree> projectSubprojects = new ArrayList<>();
 
             for (Long idProject : request.getIdProjectList()) {
 
@@ -85,12 +98,20 @@ public class ProjectsServiceImpl implements ProjectsService {
                 projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
             }
 
-            response.setProjects(projects);
-            response.setIndicators(projectIndicators);
-            response.setProjectTree(projectSubprojects);
 
         }
 
+        response.setProjects(projects);
+        if ( ! this.isEmpty(projects) ) {
+            response.setIndicators(projectIndicators);
+            response.setProjectTree(projectSubprojects);
+        }
+
         return response;
+    }
+
+    private boolean isEmpty(List list ){
+        boolean nullsOnly = list.stream().allMatch(Objects::isNull);
+        return list.isEmpty() || nullsOnly;
     }
 }
