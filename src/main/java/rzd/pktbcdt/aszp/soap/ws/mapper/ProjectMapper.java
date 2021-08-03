@@ -8,6 +8,8 @@ import java.util.Map;
 
 @Mapper
 public interface ProjectMapper {
+    String getDBName();
+
     List<Project> getProjects(Map map);
     @Deprecated
     List<ProjectTree> getProjectSub();

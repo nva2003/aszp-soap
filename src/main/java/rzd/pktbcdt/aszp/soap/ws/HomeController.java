@@ -2,10 +2,13 @@ package rzd.pktbcdt.aszp.soap.ws;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,10 +45,18 @@ private static final Logger logger = LoggerFactory.getLogger( SimpleController.c
     /*--------------------------------------------
     |    I N S T A N C E   V A R I A B L E S    |
     ============================================*/
+
     @Value("${spring.application.name}")
     String appName;
 
     String version = "UNDEFINED";
+
+    @Autowired
+    Environment env;
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
+    @Autowired
+    private ProjectMapper projectMapper;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     /*--------------------------------------------
@@ -85,6 +96,8 @@ private static final Logger logger = LoggerFactory.getLogger( SimpleController.c
         }
 
         model.addAttribute("version", version);
+        model.addAttribute("activeProfile", activeProfile);
+        model.addAttribute("dbName", projectMapper.getDBName());
         return "home";
     }
 }

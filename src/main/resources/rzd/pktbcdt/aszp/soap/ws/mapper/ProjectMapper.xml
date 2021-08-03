@@ -3,6 +3,9 @@
 
 <mapper namespace="rzd.pktbcdt.aszp.soap.ws.mapper.ProjectMapper">
 
+    <select id="getDBName" resultType="String">
+        select current_database();
+    </select>
     <select id="getProjects" resultMap="projectsMap" parameterType="map" >
         SELECT
             PR."idProject"
