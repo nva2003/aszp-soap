@@ -266,7 +266,7 @@
         <result property="descriptionProject" column="descriptionProject"/>
         <result property="dateBeginProject" column="dateBeginProject"/>
         <result property="dateEndProject" column="dateEndProject"/>
-        <result property="dateStart" column="typeProject"/>
+        <result property="dateStart" column="date_start"/>
         <result property="typeProject" column="nameAgreement"/>
         <result property="typeProjectName" column="typeProjectName"/>
         <result property="cost" column="cost"/>
