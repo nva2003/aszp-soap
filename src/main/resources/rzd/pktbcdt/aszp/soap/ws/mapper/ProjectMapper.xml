@@ -49,7 +49,7 @@
 
         <where>
             <if test="skim">
-                PR."skim" = true
+                PR."skim" = 1
             </if>
             <if test="idProject != null">
                 and PR."idProject" = #{idProject}
@@ -140,7 +140,7 @@
         where
             PR."idProject" = #{idProject}
             <if test="skim">
-            and PR."skim" = true
+            and PR."skim" = 1
             </if>
 
     </select>
