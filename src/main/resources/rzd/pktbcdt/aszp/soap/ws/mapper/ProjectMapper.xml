@@ -174,6 +174,9 @@
             ,IV."plan" as planValue
             ,IV."real" as realValue
             ,IV."prognosis"
+            ,IV."prognosis"
+            ,IU."unit_id"
+            ,KIU."name"
         FROM
             public.tbl_key_indicators_projects KIP
                 left outer join
@@ -184,6 +187,12 @@
                 left outer join
             public.tbl_key_indicators_values IV
             on IV."indicator_id" = KI."id"
+                left outer join
+            public.tbl_indicators_units IU
+            on IV."indicator_id" = IU."indicator_id"
+                left outer join
+            public.tbl_key_indicators_units KIU
+            on KIU."id" = IU."unit_id"
         where
                IV."project_id" = #{idProject}
                 <choose>
@@ -316,6 +325,8 @@
                 <result property="planValue" column="planValue"/>
                 <result property="realValue" column="realValue"/>
                 <result property="prognosis" column="prognosis"/>
+<!--                <result property="unit_id" column="unit_id"/>-->
+                <result property="unit" column="name"/>
             </collection>
 
     </resultMap>

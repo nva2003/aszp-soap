@@ -14,6 +14,8 @@ import javax.xml.bind.annotation.*;
         "planValue",
         "realValue",
         "prognosis",
+//        "unit_id",
+        "unit",
         },
         namespace = WSEndpoint.NAMESPACE_URI
 )
@@ -34,6 +36,11 @@ public class IndicatorValue {
     private Double realValue;
     @XmlElement(name = "prognosis", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int prognosis;
+/*    @XmlElement(name = "unit_id", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private String unit_id;*/
+    @XmlElement(name = "unit", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private String unit;
+
 
     public int getIdIndicatorValue() {
         return idIndicatorValue;
@@ -90,4 +97,20 @@ public class IndicatorValue {
     public void setPrognosis(int prognosis) {
         this.prognosis = prognosis;
     }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+/*    public String getUnit_id() {
+        return unit_id;
+    }
+
+    public void setUnit_id(String unit_id) {
+        this.unit_id = unit_id;
+    }*/
 }
