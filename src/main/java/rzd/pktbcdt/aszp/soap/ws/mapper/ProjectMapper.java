@@ -11,8 +11,7 @@ public interface ProjectMapper {
     String getDBName();
 
     List<Project> getProjects(Map map);
-    @Deprecated
-    List<ProjectTree> getProjectSub();
+
     List<ProjectTree> getProjectSubprojects(Map map);
     Project getProjectInfo(Map map);
     @Deprecated
@@ -23,8 +22,6 @@ public interface ProjectMapper {
     /*
     not used
     */
-    @Deprecated
-    List<Indicator> getIndicators(Map map);
     @Deprecated
     //пернесено в другой этап
     List<RoadMap> getProjectRoadMap(Map map);

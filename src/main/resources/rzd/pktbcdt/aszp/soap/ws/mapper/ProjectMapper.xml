@@ -90,6 +90,7 @@
 
     </select>
 
+<!--    Deprecated-->
     <select id="getProjectSub" resultMap="projectSubMap">
         SELECT id,parent_id, child_id, level FROM tbl_projects_subs;
 
@@ -145,6 +146,8 @@
 
     </select>
 
+<!--  @Deprecated
+    //пернесено в другой этап  -->
     <select id="getProjectRisks" resultMap="riskMap" parameterType="map" >
         SELECT
             PR."id"
@@ -207,41 +210,9 @@
                 </choose>
     </select>
 
-    <!--not used-->
-    <select id="getIndicators" resultMap="indicatorMap" parameterType="map" >
-        SELECT
-            KIP.confirmed
-            ,KIP.project_id
-            ,KI."id" as idIndicator
-            ,KI."type" as typeIndicator
-            ,KI."name" as nameIndicator
-            ,IV."id" as idIndicatorValue
-            ,IV."year"
-            ,IV."type" as periodType
-            ,IV."type_value" as periodValue
-            ,IV."plan" as planValue
-            ,IV."real" as realValue
-            ,IV."prognosis"
-        FROM
-            public.tbl_key_indicators_projects KIP
-                left outer join
-            public.tbl_key_indicators KI
-            on KIP."indicator_id" = KI."id"
-            and KIP.confirmed = true
-                left outer join
-            public.tbl_key_indicators_values IV
-            on IV."indicator_id" = KI."id"
-        <where>
-          <if test="idProject != null">
-              IV."project_id" = #{idProject}
-          </if>
-          <if test="year != null">
-              and IV."year" = #{year}
-          </if>
-        </where>
-    </select>
 
 
+<!--Deprecated-->
     <select id="getProjectRoadMap" resultMap="roadMap" parameterType="map" >
         SELECT
             TS."idStep"
@@ -297,6 +268,7 @@
         <result property="level" column="level"/>
     </resultMap>
 
+<!--    Deprecated-->
     <resultMap id="projectSubMap"  type="rzd.pktbcdt.aszp.soap.ws.model.ProjectTree">
         <result property="id" column="id"/>
         <result property="parentId" column="parent_id"/>
@@ -304,6 +276,7 @@
         <result property="level" column="level"/>
     </resultMap>
 
+    <!--    Deprecated-->
     <resultMap id="riskMap"  type="rzd.pktbcdt.aszp.soap.ws.model.Risk">
         <id  property="id" column="id"/>
         <result property="name" column="name"/>
@@ -331,6 +304,7 @@
 
     </resultMap>
 
+    <!--    Deprecated-->
     <resultMap id="roadMap"  type="rzd.pktbcdt.aszp.soap.ws.model.RoadMap">
         <id  property="idStep" column="idStep"/>
         <result property="nameStep" column="nameStep"/>

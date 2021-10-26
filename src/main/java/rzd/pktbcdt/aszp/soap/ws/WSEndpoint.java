@@ -1,9 +1,5 @@
 package rzd.pktbcdt.aszp.soap.ws;
 
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsRequest;
-import rzd.pktbcdt.aszp.soap.ws.model.GetProjectsResponse;
-
 public interface WSEndpoint {
     String NAMESPACE_URI = "http://aszp.pktbcdt.rzd/ProjectsService";
 

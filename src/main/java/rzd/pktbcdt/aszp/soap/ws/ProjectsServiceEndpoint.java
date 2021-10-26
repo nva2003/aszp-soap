@@ -34,43 +34,6 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
 
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_REQUEST_LOCAL_PART)
-    @ResponsePayload
-    public GetProjectsResponse getProjects(@RequestPayload GetProjectsRequest request) {
-
-        logger.debug("request = " + request.toString());
-
-        logger.info("The IP Address of client is : " + getClientIpAddr(this.getHttpServletRequest()));
-
-        GetProjectsResponse response = new GetProjectsResponse();
-        response.setProjects(projectsService.getProjects(request));
-
-        return response;
-    }
-
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_INFO_REQUEST_LOCAL_PART)
-    @ResponsePayload
-    public ProjectInfoResponse getProjectInfo(@RequestPayload ProjectInfoRequest request) {
-
-        logger.debug("request = " + request.toString());
-
-        logger.info("The IP Address of client is : " + getClientIpAddr(this.getHttpServletRequest()));
-        return projectsService.getProjectInfo(request);
-
-    }
-
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_PROJECT_TREE_REQUEST_LOCAL_PART)
-    @ResponsePayload
-    public ProjectTreeResponse getProjectTree(@RequestPayload ProjectTreeRequest request) {
-
-        logger.debug("request = " + request.toString());
-
-        logger.info("The IP Address of client is : " + getClientIpAddr(this.getHttpServletRequest()));
-
-        return projectsService.getProjectTree(request);
-
-    }
-
     protected HttpServletRequest getHttpServletRequest(){
         TransportContext transportContext = TransportContextHolder.getTransportContext();
         HttpServletConnection httpServletConnection = (HttpServletConnection) transportContext.getConnection();

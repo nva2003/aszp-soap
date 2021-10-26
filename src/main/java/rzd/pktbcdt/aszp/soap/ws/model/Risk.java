@@ -25,6 +25,7 @@ import java.io.Serializable;
         } ,
         namespace = WSEndpoint.NAMESPACE_URI
 )
+@Deprecated
 public class Risk implements Serializable {
 
 

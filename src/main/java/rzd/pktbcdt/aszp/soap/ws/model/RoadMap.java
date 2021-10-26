@@ -30,6 +30,7 @@ import java.util.Date;
         } ,
         namespace = WSEndpoint.NAMESPACE_URI
 )
+@Deprecated
 public class RoadMap implements Serializable {
 
 
