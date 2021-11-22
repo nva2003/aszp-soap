@@ -118,6 +118,7 @@
              ,U3."full_name" as worker
              ,TP."nameAgreement" as typeProjectName
              ,COUNTRIES."nameCountry"
+             ,COUNTRIES."currency"
 
 
         FROM
@@ -179,7 +180,11 @@
             ,IV."prognosis"
             ,IV."prognosis"
             ,IU."unit_id"
-            ,KIU."name"
+            ,CASE
+                WHEN IU.unit_id=99 THEN #{currency}
+                ELSE KIU."name"
+            END as name
+
         FROM
             public.tbl_key_indicators_projects KIP
                 left outer join
@@ -298,7 +303,7 @@
                 <result property="planValue" column="planValue"/>
                 <result property="realValue" column="realValue"/>
                 <result property="prognosis" column="prognosis"/>
-<!--                <result property="unit_id" column="unit_id"/>-->
+                <result property="unit_id" column="unit_id"/>
                 <result property="unit" column="name"/>
             </collection>
 

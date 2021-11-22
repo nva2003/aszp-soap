@@ -47,8 +47,12 @@ public class ProjectsServiceImpl implements ProjectsService {
 
                 paramMap.put("idProject", idProject);
 
-                projects.add(projectMapper.getProjectInfo(paramMap));
+                Project projectInfo = projectMapper.getProjectInfo(paramMap);
+
+                paramMap.put("currency",projectInfo.getCurrency());
+
                 projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
+
                 projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
             }
 
