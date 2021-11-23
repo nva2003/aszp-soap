@@ -72,6 +72,10 @@ public class Project {
     @XmlElement(name = "idCountry", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private long idCountry;
 
+//    @XmlElement()
+    @XmlTransient
+    private String currency;
+
     public String getCountry() {
         return country;
     }
@@ -198,5 +202,13 @@ public class Project {
 
     public void setTypeProject(String typeProject) {
         this.typeProject = typeProject;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

@@ -13,8 +13,10 @@ import javax.xml.bind.annotation.*;
         "periodValue",
         "planValue",
         "realValue",
+        "planSummaryValue",
+        "realSummaryValue",
         "prognosis",
-//        "unit_id",
+        "unit_id",
         "unit",
         },
         namespace = WSEndpoint.NAMESPACE_URI
@@ -34,10 +36,14 @@ public class IndicatorValue {
     private Double planValue;
     @XmlElement(name = "realValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private Double realValue;
+    @XmlElement(name = "planSummaryValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private Double planSummaryValue;
+    @XmlElement(name = "realSummaryValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private Double realSummaryValue;
     @XmlElement(name = "prognosis", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int prognosis;
-/*    @XmlElement(name = "unit_id", required = true, namespace = WSEndpoint.NAMESPACE_URI)
-    private String unit_id;*/
+    @XmlElement(name = "unit_id", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private String unit_id;
     @XmlElement(name = "unit", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private String unit;
 
@@ -106,11 +112,27 @@ public class IndicatorValue {
         this.unit = unit;
     }
 
-/*    public String getUnit_id() {
+    public String getUnit_id() {
         return unit_id;
     }
 
     public void setUnit_id(String unit_id) {
         this.unit_id = unit_id;
-    }*/
+    }
+
+    public Double getPlanSummaryValue() {
+        return planSummaryValue;
+    }
+
+    public void setPlanSummaryValue(Double planSummaryValue) {
+        this.planSummaryValue = planSummaryValue;
+    }
+
+    public Double getRealSummaryValue() {
+        return realSummaryValue;
+    }
+
+    public void setRealSummaryValue(Double realSummaryValue) {
+        this.realSummaryValue = realSummaryValue;
+    }
 }
