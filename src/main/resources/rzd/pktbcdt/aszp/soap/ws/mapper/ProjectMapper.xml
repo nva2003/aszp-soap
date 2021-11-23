@@ -181,7 +181,6 @@
             ,IV."plan_summary" as planSummaryValue
             ,IV."real_summary" as realSummaryValue
             ,IV."prognosis"
-            ,IV."prognosis"
             ,IU."unit_id"
             ,CASE
                 WHEN IU.unit_id=99 THEN #{currency}
