@@ -24,13 +24,12 @@ public class ProjectsServiceEndpoint implements WSEndpoint{
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = GET_ASZP_PROJECT_REQUEST_LOCAL_PART)
     @ResponsePayload
-    public ProjectsResponse getASZPProjects(@RequestPayload ProjectsRequest request) {
+    public ProjectsResponse getASZPProjects() {
 
-        logger.debug("request = " + request.toString());
 
         logger.info("The IP Address of client is : " + getClientIpAddr(this.getHttpServletRequest()));
 
-        return projectsService.getASZPProjects(request);
+        return projectsService.getASZPProjects();
 
     }
 

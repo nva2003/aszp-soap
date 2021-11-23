@@ -15,6 +15,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
 
+    @Deprecated
     @Override
     public ProjectsResponse getASZPProjects(ProjectsRequest request) {
         ProjectsResponse response = new ProjectsResponse();
@@ -37,7 +38,13 @@ public class ProjectsServiceImpl implements ProjectsService {
             for (Project project : projects) {
 
                 paramMap.put("idProject", project.getIdProject());
+
+                Project projectInfo = projectMapper.getProjectInfo(paramMap);
+
+                paramMap.put("currency",projectInfo.getCurrency());
+
                 projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
+
                 projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
             }
 
@@ -58,6 +65,44 @@ public class ProjectsServiceImpl implements ProjectsService {
 
 
         }
+
+        response.setProjects(projects);
+        if ( ! this.isEmpty(projects) ) {
+            response.setIndicators(projectIndicators);
+            response.setProjectTree(projectSubprojects);
+        }
+
+        return response;
+    }
+
+    @Override
+    public ProjectsResponse getASZPProjects() {
+        ProjectsResponse response = new ProjectsResponse();
+
+        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
+
+
+        List<Project> projects = new ArrayList<>();
+        List<Indicator> projectIndicators = new ArrayList<>();
+        List<ProjectTree> projectSubprojects = new ArrayList<>();
+        paramMap.put("skim", true);
+
+
+            projects.addAll(projectMapper.getProjects(paramMap));
+
+            for (Project project : projects) {
+
+                paramMap.put("idProject", project.getIdProject());
+
+                Project projectInfo = projectMapper.getProjectInfo(paramMap);
+
+                paramMap.put("currency",projectInfo.getCurrency());
+
+                projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
+
+                projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
+            }
+
 
         response.setProjects(projects);
         if ( ! this.isEmpty(projects) ) {

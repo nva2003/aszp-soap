@@ -27,6 +27,7 @@
              ,U3."full_name" as worker
              ,TP."nameAgreement" as typeProjectName
              ,COUNTRIES."nameCountry"
+             ,COUNTRIES."currency"
 
         FROM
             public.tbl_projects PR
@@ -177,6 +178,8 @@
             ,IV."type_value" as periodValue
             ,IV."plan" as planValue
             ,IV."real" as realValue
+            ,IV."plan_summary" as planSummaryValue
+            ,IV."real_summary" as realSummaryValue
             ,IV."prognosis"
             ,IV."prognosis"
             ,IU."unit_id"
@@ -302,6 +305,8 @@
                 <result property="periodValue" column="periodValue"/>
                 <result property="planValue" column="planValue"/>
                 <result property="realValue" column="realValue"/>
+                <result property="planSummaryValue" column="planSummaryValue"/>
+                <result property="realSummaryValue" column="realSummaryValue"/>
                 <result property="prognosis" column="prognosis"/>
                 <result property="unit_id" column="unit_id"/>
                 <result property="unit" column="name"/>
