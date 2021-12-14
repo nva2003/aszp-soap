@@ -19,6 +19,8 @@ public interface ProjectMapper {
     List<Risk> getProjectRisks(Map map);
     List<Indicator> getProjectIndicators(Map map);
 
+    List<IndicatorSummary> getProjectIndicatorsSummaries(Map map);
+
     /*
     not used
     */

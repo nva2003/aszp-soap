@@ -178,8 +178,6 @@
             ,IV."type_value" as periodValue
             ,IV."plan" as planValue
             ,IV."real" as realValue
-            ,IV."plan_summary" as planSummaryValue
-            ,IV."real_summary" as realSummaryValue
             ,IV."prognosis"
             ,IU."unit_id"
             ,CASE
@@ -215,6 +213,44 @@
                         and IV."year"=date_part('year',CURRENT_DATE)
                     </otherwise>
                 </choose>
+    </select>
+
+    <!--
+    Таблица tbl_key_indicators_summary:
+    ну по id, indicator_id,project_id, unit_id думаю понятно
+    start_year - год с которого нужен подсчет данных
+    period_type = 1 - месяц, 2 - квартал, 3 - полугодие, 4 - год
+    period_value = значение period_type (номер месяца, квартала, полугодия, цифра года)
+    value_real, value_plan = нарастающие значения
+    year = год значения
+    То есть получается так, что в таблице значения показателей просчитаны с каждого существующего года, потому что заказчик хотел чтобы была возможность не только с начала проекта считать
+    -->
+    <select id="getProjectIndicatorsSummaries" resultMap="indicatorSummariesMap" parameterType="map" >
+        SELECT
+            TKIS.id as idIndicatorValue
+            TKIS.indicator_id as idIndicator
+            ,TKIS.project_id  as idProject
+            ,TKIS.start_year
+            ,TKIS.period_type as periodType
+            ,TKIS.period_value as periodValue
+            ,TKIS.value_real as realValue
+            ,TKIS.unit_id
+            ,TKIS.value_plan as planValue
+            ,TKIS.year
+
+             ,KIU."name"
+        FROM
+            public.tbl_key_indicators_summary TKIS
+        where
+               TKIS."project_id" = #{idProject}
+               and
+               TKIS."indicator_id" in (select distinct KIP.indicator_id
+                       from public.tbl_key_indicators_projects KIP
+                        where
+                         confirmed=true
+                          and
+                          KIP."project_id" = #{idProject}
+                   )
     </select>
 
 
@@ -304,11 +340,25 @@
                 <result property="periodValue" column="periodValue"/>
                 <result property="planValue" column="planValue"/>
                 <result property="realValue" column="realValue"/>
-                <result property="planSummaryValue" column="planSummaryValue"/>
-                <result property="realSummaryValue" column="realSummaryValue"/>
                 <result property="prognosis" column="prognosis"/>
                 <result property="unit_id" column="unit_id"/>
                 <result property="unit" column="name"/>
+            </collection>
+
+    </resultMap>
+
+    <resultMap id="indicatorSummariesMap"  type="rzd.pktbcdt.aszp.soap.ws.model.IndicatorSummary">
+        <id  property="idIndicator" column="idIndicator"/>
+        <result property="idProject" column="idProject"/>
+            <collection property="IndicatorSummaryValue" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorSummaryValue">
+                <result property="idIndicatorSummaryValue" column="idIndicatorValue"/>
+                <result property="startYear" column="start_year"/>
+                <result property="year" column="year"/>
+                <result property="periodType" column="periodType"/>
+                <result property="periodValue" column="periodValue"/>
+                <result property="planValue" column="planValue"/>
+                <result property="realValue" column="realValue"/>
+                <result property="prognosis" column="prognosis"/>
             </collection>
 
     </resultMap>

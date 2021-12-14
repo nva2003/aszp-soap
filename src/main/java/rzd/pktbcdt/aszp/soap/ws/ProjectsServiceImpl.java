@@ -15,65 +15,6 @@ public class ProjectsServiceImpl implements ProjectsService {
     private ProjectMapper projectMapper;
 
 
-    @Deprecated
-    @Override
-    public ProjectsResponse getASZPProjects(ProjectsRequest request) {
-        ProjectsResponse response = new ProjectsResponse();
-
-        Map<String, Serializable> paramMap = new HashMap<String, Serializable>();
-        //todo: add year or date paramMap.put("year", request.getYear());
-
-        boolean nullsOnly = request.getIdProjectList().stream().allMatch(Objects::isNull);
-
-        List<Project> projects = new ArrayList<>();
-        List<Indicator> projectIndicators = new ArrayList<>();
-        List<ProjectTree> projectSubprojects = new ArrayList<>();
-        paramMap.put("skim", true);
-
-        if (request.getIdProjectList() == null || request.getIdProjectList().isEmpty() || nullsOnly){
-
-
-            projects.addAll(projectMapper.getProjects(paramMap));
-
-            for (Project project : projects) {
-
-                paramMap.put("idProject", project.getIdProject());
-
-                Project projectInfo = projectMapper.getProjectInfo(paramMap);
-
-                paramMap.put("currency",projectInfo.getCurrency());
-
-                projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
-
-                projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
-            }
-
-        } else {
-
-            for (Long idProject : request.getIdProjectList()) {
-
-                paramMap.put("idProject", idProject);
-
-                Project projectInfo = projectMapper.getProjectInfo(paramMap);
-
-                paramMap.put("currency",projectInfo.getCurrency());
-
-                projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
-
-                projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
-            }
-
-
-        }
-
-        response.setProjects(projects);
-        if ( ! this.isEmpty(projects) ) {
-            response.setIndicators(projectIndicators);
-            response.setProjectTree(projectSubprojects);
-        }
-
-        return response;
-    }
 
     @Override
     public ProjectsResponse getASZPProjects() {
@@ -84,6 +25,7 @@ public class ProjectsServiceImpl implements ProjectsService {
 
         List<Project> projects = new ArrayList<>();
         List<Indicator> projectIndicators = new ArrayList<>();
+        List<IndicatorSummary> projectIndicatorsSummaries = new ArrayList<>();
         List<ProjectTree> projectSubprojects = new ArrayList<>();
         paramMap.put("skim", true);
 
@@ -100,6 +42,8 @@ public class ProjectsServiceImpl implements ProjectsService {
 
                 projectIndicators.addAll(projectMapper.getProjectIndicators(paramMap));
 
+                projectIndicatorsSummaries.addAll(projectMapper.getProjectIndicatorsSummaries(paramMap));
+
                 projectSubprojects.addAll(projectMapper.getProjectSubprojects(paramMap));
             }
 
@@ -108,6 +52,7 @@ public class ProjectsServiceImpl implements ProjectsService {
         if ( ! this.isEmpty(projects) ) {
             response.setIndicators(projectIndicators);
             response.setProjectTree(projectSubprojects);
+//            response.setIndicatorsSummaries(projectIndicatorsSummaries);
         }
 
         return response;

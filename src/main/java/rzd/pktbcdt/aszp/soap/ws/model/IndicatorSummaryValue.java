@@ -2,29 +2,32 @@ package rzd.pktbcdt.aszp.soap.ws.model;
 
 import rzd.pktbcdt.aszp.soap.ws.WSEndpoint;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "IndicatorValue",
+@XmlType(name = "IndicatorSummaryValue",
         propOrder = {
-        "idIndicatorValue",
+        "idIndicatorSummaryValue",
+        "startYear",
         "year",
         "periodType",
         "periodValue",
         "planValue",
         "realValue",
-        "prognosis",
-        "unit_id",
-        "unit",
         },
         namespace = WSEndpoint.NAMESPACE_URI
 )
-public class IndicatorValue {
+public class IndicatorSummaryValue {
 
-    @XmlElement(name = "idIndicatorValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
-    private int idIndicatorValue;
+    @XmlElement(name = "idIndicatorSummaryValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private int idIndicatorSummaryValue;
     @XmlElement(name = "year", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int year;
+    @XmlElement(name = "startYear", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private int startYear;
     @XmlElement(name = "periodType", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private int periodType;
     @XmlElement(name = "periodValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
@@ -33,20 +36,22 @@ public class IndicatorValue {
     private Double planValue;
     @XmlElement(name = "realValue", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private Double realValue;
-    @XmlElement(name = "prognosis", required = true, namespace = WSEndpoint.NAMESPACE_URI)
-    private int prognosis;
-    @XmlElement(name = "unit_id", required = true, namespace = WSEndpoint.NAMESPACE_URI)
-    private String unit_id;
-    @XmlElement(name = "unit", required = true, namespace = WSEndpoint.NAMESPACE_URI)
-    private String unit;
 
 
-    public int getIdIndicatorValue() {
-        return idIndicatorValue;
+    public int getIdIndicatorSummaryValue() {
+        return idIndicatorSummaryValue;
     }
 
-    public void setIdIndicatorValue(int idIndicatorValue) {
-        this.idIndicatorValue = idIndicatorValue;
+    public void setIdIndicatorSummaryValue(int idIndicatorSummaryValue) {
+        this.idIndicatorSummaryValue = idIndicatorSummaryValue;
+    }
+
+    public int getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(int startYear) {
+        this.startYear = startYear;
     }
 
     public int getYear() {
@@ -89,28 +94,5 @@ public class IndicatorValue {
         this.realValue = realValue;
     }
 
-    public int getPrognosis() {
-        return prognosis;
-    }
-
-    public void setPrognosis(int prognosis) {
-        this.prognosis = prognosis;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    public String getUnit_id() {
-        return unit_id;
-    }
-
-    public void setUnit_id(String unit_id) {
-        this.unit_id = unit_id;
-    }
 
 }

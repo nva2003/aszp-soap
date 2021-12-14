@@ -12,6 +12,7 @@ import java.util.List;
 //        ,"risks"
         ,"projectTree"
         ,"indicators"
+        ,"indicatorsSummaries"
 //        ,"roadMapList"
         } ,
         namespace = WSEndpoint.NAMESPACE_URI
@@ -26,6 +27,10 @@ public class ProjectsResponse {
     @XmlElementWrapper(name = "indicators", nillable = true)
     @XmlElement(name = "indicator", required = true, namespace = WSEndpoint.NAMESPACE_URI)
     private List<Indicator> indicators;
+
+    @XmlElementWrapper(name = "indicatorSummaries", nillable = true)
+    @XmlElement(name = "indicatorSummary", required = true, namespace = WSEndpoint.NAMESPACE_URI)
+    private List<IndicatorSummary> indicatorsSummaries;
 
     @XmlElementWrapper(name = "projectTree", nillable = true)
     @XmlElement(name = "project", required = true, namespace = WSEndpoint.NAMESPACE_URI)
@@ -80,6 +85,14 @@ public class ProjectsResponse {
 
     public void setIndicators(List<Indicator> indicators) {
         this.indicators = indicators;
+    }
+
+    public List<IndicatorSummary> getIndicatorsSummaries() {
+        return indicatorsSummaries;
+    }
+
+    public void setIndicatorsSummaries(List<IndicatorSummary> indicatorsSummaries) {
+        this.indicatorsSummaries = indicatorsSummaries;
     }
 
 /*
