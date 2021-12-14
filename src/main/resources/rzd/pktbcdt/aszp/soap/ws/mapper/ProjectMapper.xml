@@ -228,7 +228,7 @@
     <select id="getProjectIndicatorsSummaries" resultMap="indicatorSummariesMap" parameterType="map" >
         SELECT
             TKIS.id as idIndicatorValue
-            TKIS.indicator_id as idIndicator
+            ,TKIS.indicator_id as idIndicator
             ,TKIS.project_id  as idProject
             ,TKIS.start_year
             ,TKIS.period_type as periodType
@@ -237,8 +237,6 @@
             ,TKIS.unit_id
             ,TKIS.value_plan as planValue
             ,TKIS.year
-
-             ,KIU."name"
         FROM
             public.tbl_key_indicators_summary TKIS
         where
@@ -350,7 +348,7 @@
     <resultMap id="indicatorSummariesMap"  type="rzd.pktbcdt.aszp.soap.ws.model.IndicatorSummary">
         <id  property="idIndicator" column="idIndicator"/>
         <result property="idProject" column="idProject"/>
-            <collection property="IndicatorSummaryValue" ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorSummaryValue">
+            <collection property="IndicatorSummaryValues" javaType="List"  ofType="rzd.pktbcdt.aszp.soap.ws.model.IndicatorSummaryValue">
                 <result property="idIndicatorSummaryValue" column="idIndicatorValue"/>
                 <result property="startYear" column="start_year"/>
                 <result property="year" column="year"/>

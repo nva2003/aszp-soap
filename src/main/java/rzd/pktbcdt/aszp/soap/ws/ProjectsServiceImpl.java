@@ -52,7 +52,7 @@ public class ProjectsServiceImpl implements ProjectsService {
         if ( ! this.isEmpty(projects) ) {
             response.setIndicators(projectIndicators);
             response.setProjectTree(projectSubprojects);
-//            response.setIndicatorsSummaries(projectIndicatorsSummaries);
+            response.setIndicatorsSummaries(projectIndicatorsSummaries);
         }
 
         return response;
